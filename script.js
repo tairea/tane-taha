@@ -7,16 +7,23 @@ var BootScene = new Phaser.Class({
 
   preload: function() {
     // map tiles
-    this.load.image("tiles", "assets/map/spritesheet.png");
+    this.load.image(
+      "tiles",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fspritesheet.png?v=1597101329592"
+    );
 
     // map in json format
-    this.load.tilemapTiledJSON("map", "assets/map/map.json");
+    this.load.tilemapTiledJSON("map", "map.json");
 
     // our two characters
-    this.load.spritesheet("player", "assets/RPG_assets.png", {
-      frameWidth: 16,
-      frameHeight: 16
-    });
+    this.load.spritesheet(
+      "player",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FRPG_assets.png?v=1597101406898",
+      {
+        frameWidth: 16,
+        frameHeight: 16
+      }
+    );
   },
 
   create: function() {
