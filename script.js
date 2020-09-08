@@ -68,17 +68,18 @@ var WorldScene = new Phaser.Class({
       
         this.items = this.physics.add.group({allowGravity: false,immovable: true});
       
-        area1 = this.items.create(area1.x, area1.y - area1.height, 'area1').setOrigin(0, 0);
-        area2 = this.items.create(area2.x, area2.y - area2.height, 'area2').setOrigin(0, 0);
-        area3 = this.items.create(area3.x, area3.y - area3.height, 'area3').setOrigin(0, 0);
-        area4 = this.items.create(area4.x, area4.y - area4.height, 'area4').setOrigin(0, 0);
-        center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
+        this.items.create(area1.x, area1.y - area1.height, 'area1').setOrigin(0, 0);
+        this.items.create(area2.x, area2.y - area2.height, 'area2').setOrigin(0, 0);
+        this.items.create(area3.x, area3.y - area3.height, 'area3').setOrigin(0, 0);
+        this.items.create(area4.x, area4.y - area4.height, 'area4').setOrigin(0, 0);
+        this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
       
-        console.log(area1)
-        console.log(area2)
-        console.log(area3)
-        console.log(area4)
-        console.log(center)
+        console.log('area1 - x:',area1.x,'y:',area1.y,'width:',area1.width,'height:',area1.height)
+        console.log('area2 - x:',area2.x,'y:',area2.y,'width:',area2.width,'height:',area2.height)
+        console.log('area3 - x:',area3.x,'y:',area3.y,'width:',area3.width,'height:',area3.height)
+        console.log('area4 - x:',area4.x,'y:',area4.y,'width:',area4.width,'height:',area4.height)
+        console.log('center - x:',center.x,'y:',center.y,'width:',center.width,'height:',center.height)
+
         
         // make all tiles in obstacles collidable
         const platforms = map.createStaticLayer('ground', tileset, 0, 0);
@@ -209,7 +210,7 @@ var WorldScene = new Phaser.Class({
       console.log(this.player.x,this.player.y)
       
       // check if player in area 1
-      if (this.player.x > area1.x && this.player.x < area1.width && this.player.y > area1.y && this.player.y < area1.height) {
+      if (this.player.x > area1.x && this.player.x < area1.x + area1.width && this.player.y > area1.y && this.player.y < this.player.y + area1.height) {
         console.log('player is in TAHA 1')
       }
       if (this.player.x > area2.x && this.player.x < area2.width && this.player.y > area2.y && this.player.y < area2.height) {
@@ -241,7 +242,7 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false // set to true to view zones
+            debug: true // set to true to view zones
         }
     },
     scene: [
