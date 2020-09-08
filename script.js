@@ -52,7 +52,7 @@ var WorldScene = new Phaser.Class({
         var map = this.make.tilemap({ key: 'map' });
         
         // first parameter is the name of the tilemap in tiled
-        var tileset = map.addTilesetImage('rougelikeSheet_transparent', 'tiles');
+        var tileset = map.addTilesetImage('roguelikeSheet_transparent', 'tiles');
         
         // creating the areas
         let area1 = map.findObject("areas", obj => obj.name === "area1");
@@ -138,7 +138,7 @@ var WorldScene = new Phaser.Class({
         zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
         
         // shake the world
-        this.cameras.main.shake(300);
+        //this.cameras.main.shake(300);
         
         // start battle 
     },
@@ -198,8 +198,8 @@ var WorldScene = new Phaser.Class({
 var config = {
     type: Phaser.AUTO,
     parent: 'content',
-    width: 320,
-    height: 240,
+    width: 640,
+    height: 320,
     zoom: 2,
     pixelArt: true,
     physics: {
