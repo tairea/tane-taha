@@ -1,5 +1,3 @@
-
-
 var BootScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -30,6 +28,13 @@ var BootScene = new Phaser.Class({
     }
 });
 
+var area1;
+var area2;
+var area3;
+var area4;
+var center;
+
+
 var WorldScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -55,11 +60,11 @@ var WorldScene = new Phaser.Class({
         var tileset = map.addTilesetImage('roguelikeSheet_transparent', 'tiles');
         
         // creating the areas
-        let area1 = map.findObject("areas", obj => obj.name === "area1");
-        let area2 = map.findObject("areas", obj => obj.name === "area2");
-        let area3 = map.findObject("areas", obj => obj.name === "area3");
-        let area4 = map.findObject("areas", obj => obj.name === "area4");
-        let center = map.findObject("areas", obj => obj.name === "area");
+         area1 = map.findObject("areas", obj => obj.name === "area1");
+         area2 = map.findObject("areas", obj => obj.name === "area2");
+         area3 = map.findObject("areas", obj => obj.name === "area3");
+         area4 = map.findObject("areas", obj => obj.name === "area4");
+         center = map.findObject("areas", obj => obj.name === "center");
       
         this.items = this.physics.add.group({allowGravity: false,immovable: true});
       
@@ -67,7 +72,13 @@ var WorldScene = new Phaser.Class({
         area2 = this.items.create(area2.x, area2.y - area2.height, 'area2').setOrigin(0, 0);
         area3 = this.items.create(area3.x, area3.y - area3.height, 'area3').setOrigin(0, 0);
         area4 = this.items.create(area4.x, area4.y - area4.height, 'area4').setOrigin(0, 0);
-        // center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
+        center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
+      
+        console.log(area1)
+        console.log(area2)
+        console.log(area3)
+        console.log(area4)
+        console.log(center)
         
         // make all tiles in obstacles collidable
         const platforms = map.createStaticLayer('ground', tileset, 0, 0);
@@ -133,11 +144,6 @@ var WorldScene = new Phaser.Class({
         this.physics.add.overlap(this.player, this.spawns, this.onMeetEnemy, false, this);
       
       
-      const area1 = map.findObject("areas", obj => obj.name === "area1");
-      const area2 = map.findObject("areas", obj => obj.name === "area2");
-      const area3 = map.findObject("areas", obj => obj.name === "area3");
-      const area4 = map.findObject("areas", obj => obj.name === "area4");
-      const center = map.findObject("areas", obj => obj.name === "center");
       
     },
     onMeetEnemy: function(player, zone) {        
@@ -199,6 +205,27 @@ var WorldScene = new Phaser.Class({
         {
             this.player.anims.stop();
         }
+      
+      console.log(this.player.x,this.player.y)
+      
+      // check if player in area 1
+      if (this.player.x > area1.x && this.player.x < area1.width && this.player.y > area1.y && this.player.y < area1.height) {
+        console.log('player is in TAHA 1')
+      }
+      if (this.player.x > area2.x && this.player.x < area2.width && this.player.y > area2.y && this.player.y < area2.height) {
+        console.log('player is in TAHA 2')
+      }
+      if (this.player.x > area3.x && this.player.x < area3.width && this.player.y > area3.y && this.player.y < area3.height) {
+        console.log('player is in TAHA 3')
+      }
+      if (this.player.x > area4.x && this.player.x < area4.width && this.player.y > area4.y && this.player.y < area4.height) {
+        console.log('player is in TAHA 4')
+      }
+      if (this.player.x > center.x && this.player.x < center.width && this.player.y > center.y && this.player.y < center.height) {
+        console.log('player is in CENTER')
+      }
+        
+      //
     }
     
 });
