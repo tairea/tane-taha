@@ -58,8 +58,12 @@ var WorldScene = new Phaser.Class({
         const area1 = map.findObject("areas", obj => obj.name === "area1");
         const area2 = map.findObject("areas", obj => obj.name === "area2");
         const area3 = map.findObject("areas", obj => obj.name === "area3");
-        const area4 = map.findObject("areas", obj => obj.name === "area");
-         const area4 = map.findObject("areas", obj => obj.name === "area");
+        const area4 = map.findObject("areas", obj => obj.name === "area4");
+        const center = map.findObject("areas", obj => obj.name === "area");
+      
+        this.items = this.physics.add.group({allowGravity: false,immovable: true});
+      
+        const area1 = this.items.create(yellowLockTile.x, yellowLockTile.y - yellowLockTile.height, 'yellowLock').setOrigin(0, 0);
         
         // make all tiles in obstacles collidable
         obstacles.setCollisionByExclusion([-1]);
