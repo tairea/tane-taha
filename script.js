@@ -62,12 +62,6 @@ var WorldScene = new Phaser.Class({
       immovable: true
     });
 
-    this.items.create(area1.x, area1.y, "area1").setOrigin(0, 0);
-    this.items.create(area2.x, area2.y, "area2").setOrigin(0, 0);
-    this.items.create(area3.x, area3.y, "area3").setOrigin(0, 0);
-    this.items.create(area4.x, area4.y, "area4").setOrigin(0, 0);
-    this.items.create(center.x, center.y, "center").setOrigin(0, 0);
-
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
 
@@ -230,7 +224,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true // set to true to view zones
+      debug: false // set to true to view zones
     }
   },
   scene: [BootScene, WorldScene]
