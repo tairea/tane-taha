@@ -63,10 +63,16 @@ var WorldScene = new Phaser.Class({
       
         this.items = this.physics.add.group({allowGravity: false,immovable: true});
       
-        const area1 = this.items.create(yellowLockTile.x, yellowLockTile.y - yellowLockTile.height, 'yellowLock').setOrigin(0, 0);
+        area1 = this.items.create(area1.x, area1.y - area1.height, 'area1').setOrigin(0, 0);
+        area2 = this.items.create(area2.x, area2.y - area2.height, 'area2').setOrigin(0, 0);
+        area3 = this.items.create(area3.x, area3.y - area3.height, 'area3').setOrigin(0, 0);
+        area4 = this.items.create(area4.x, area4.y - area4.height, 'area4').setOrigin(0, 0);
+        center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
         
         // make all tiles in obstacles collidable
-        obstacles.setCollisionByExclusion([-1]);
+         const platforms = map.createStaticLayer('ground', tiles, 0, 0);
+        
+      // platforms.setCollisionByExclusion([-1]);
         
         //  animation with key 'left', we don't need left and right as we will use one and flip the sprite
         this.anims.create({
