@@ -52,14 +52,14 @@ var WorldScene = new Phaser.Class({
         var map = this.make.tilemap({ key: 'map' });
         
         // first parameter is the name of the tilemap in tiled
-        var tiles = map.addTilesetImage('rougelikeSheet_transparent', 'tiles');
+        var tileset = map.addTilesetImage('rougelikeSheet_transparent', 'tiles');
         
         // creating the areas
-        const area1 = map.findObject("areas", obj => obj.name === "area1");
-        const area2 = map.findObject("areas", obj => obj.name === "area2");
-        const area3 = map.findObject("areas", obj => obj.name === "area3");
-        const area4 = map.findObject("areas", obj => obj.name === "area4");
-        const center = map.findObject("areas", obj => obj.name === "area");
+        let area1 = map.findObject("areas", obj => obj.name === "area1");
+        let area2 = map.findObject("areas", obj => obj.name === "area2");
+        let area3 = map.findObject("areas", obj => obj.name === "area3");
+        let area4 = map.findObject("areas", obj => obj.name === "area4");
+        let center = map.findObject("areas", obj => obj.name === "area");
       
         this.items = this.physics.add.group({allowGravity: false,immovable: true});
       
@@ -67,10 +67,10 @@ var WorldScene = new Phaser.Class({
         area2 = this.items.create(area2.x, area2.y - area2.height, 'area2').setOrigin(0, 0);
         area3 = this.items.create(area3.x, area3.y - area3.height, 'area3').setOrigin(0, 0);
         area4 = this.items.create(area4.x, area4.y - area4.height, 'area4').setOrigin(0, 0);
-        center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
+        // center = this.items.create(center.x, center.y - center.height, 'center').setOrigin(0, 0);
         
         // make all tiles in obstacles collidable
-         const platforms = map.createStaticLayer('ground', tiles, 0, 0);
+        const platforms = map.createStaticLayer('ground', tileset, 0, 0);
         
       // platforms.setCollisionByExclusion([-1]);
         
@@ -111,7 +111,7 @@ var WorldScene = new Phaser.Class({
         this.player.setCollideWorldBounds(true);
         
         // don't walk on trees
-        this.physics.add.collider(this.player, obstacles);
+        // this.physics.add.collider(this.player, obstacles);
 
         // limit camera to map
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
