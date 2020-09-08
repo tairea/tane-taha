@@ -14,13 +14,13 @@ var BootScene = new Phaser.Class({
     preload: function ()
     {
         // map tiles
-        this.load.image('tiles', 'https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fspritesheet.png?v=1597101329592');
+        this.load.image('tiles', 'https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183');
         
         // map in json format
-        this.load.tilemapTiledJSON('map', '/map.json');
+        this.load.tilemapTiledJSON('map', 'https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606');
         
         // our two characters
-        this.load.spritesheet('player', 'https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FRPG_assets.png?v=1597101406898', { frameWidth: 16, frameHeight: 16 });
+        this.load.spritesheet('player', 'https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Frpg-girl-sprite.png?v=1599531666710', { frameWidth: 17, frameHeight: 17 });
     },
 
     create: function ()
@@ -52,11 +52,14 @@ var WorldScene = new Phaser.Class({
         var map = this.make.tilemap({ key: 'map' });
         
         // first parameter is the name of the tilemap in tiled
-        var tiles = map.addTilesetImage('spritesheet', 'tiles');
+        var tiles = map.addTilesetImage('rougelikeSheet_transparent', 'tiles');
         
-        // creating the layers
-        var grass = map.createStaticLayer('Grass', tiles, 0, 0);
-        var obstacles = map.createStaticLayer('Obstacles', tiles, 0, 0);
+        // creating the areas
+        const area1 = map.findObject("areas", obj => obj.name === "area1");
+        const area2 = map.findObject("areas", obj => obj.name === "area2");
+        const area3 = map.findObject("areas", obj => obj.name === "area3");
+        const area4 = map.findObject("areas", obj => obj.name === "area");
+         const area4 = map.findObject("areas", obj => obj.name === "area");
         
         // make all tiles in obstacles collidable
         obstacles.setCollisionByExclusion([-1]);
