@@ -41,9 +41,53 @@ var WorldScene = new Phaser.Class({
     Phaser.Scene.call(this, { key: "WorldScene" });
   },
 
-  preload: function() {},
+  preload: function() {
+    this.load.image("energycontainer", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergycontainer.png?v=1600124415790");
+    this.load.image("energybar", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212");
+    
+  },
 
   create: function() {
+
+    this.timeLeft = gameOptions.initialTime;
+ 
+        // the energy container. A simple sprite
+        let energyContainer = this.add.sprite(game.config.width / 2, game.config.height / 2, "energycontainer");
+ 
+        // the energy bar. Another simple sprite
+        let energyBar = this.add.sprite(energyContainer.x + 46, energyContainer.y, "energybar");
+ 
+        // a copy of the energy bar to be used as a mask. Another simple sprite but...
+        this.energyMask = this.add.sprite(energyBar.x, energyBar.y, "energybar");
+ 
+        // ...it's not visible...
+        this.energyMask.visible = false;
+ 
+        // and we assign it as energyBar's mask.
+        energyBar.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMask);
+ 
+        // a boring timer.
+        this.gameTimer = this.time.addEvent({
+            delay: 1000,
+            callback: function(){
+                this.timeLeft --;
+ 
+                // dividing enery bar width by the number of seconds gives us the amount
+                // of pixels we need to move the energy bar each second
+                let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
+ 
+                // moving the mask
+                this.energyMask.x -= stepWidth;
+                if(this.timeLeft == 0){
+                    this.scene.start("PlayGame")
+                }
+            },
+            callbackScope: this,
+            loop: true
+        });
+    }
+                  
+                  
     // create the map
     var map = this.make.tilemap({ key: "map" });
 
@@ -125,6 +169,8 @@ var WorldScene = new Phaser.Class({
     // // add collider
     // this.physics.add.overlap(this.player, this.spawns, this.onMeetEnemy, false, this);
   },
+    
+    
   onMeetEnemy: function(player, zone) {
     // we move the zone to some other location
     // zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
@@ -133,6 +179,8 @@ var WorldScene = new Phaser.Class({
     //this.cameras.main.shake(300);
     // start battle
   },
+    
+    
   update: function(time, delta) {
     //    this.controls.update(delta);
 
