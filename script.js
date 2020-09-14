@@ -54,6 +54,9 @@ var WorldScene = new Phaser.Class({
   create: function() {
 
     this.timeLeft = gameOptions.initialTime;
+    
+    console.log(game.config.width)
+    console.log(game.config.width)
  
         // the energy container. A simple sprite
         let energyContainer = this.add.sprite(game.config.width / 2, game.config.height / 2, "energycontainer");
