@@ -35,6 +35,10 @@ var area3;
 var area4;
 var center;
 
+let gameOptions = {
+    initialTime: 60
+}
+
 var WorldScene = new Phaser.Class({
   Extends: Phaser.Scene,
   initialize: function WorldScene() {
@@ -85,7 +89,6 @@ var WorldScene = new Phaser.Class({
             callbackScope: this,
             loop: true
         });
-    }
                   
                   
     // create the map
@@ -168,16 +171,9 @@ var WorldScene = new Phaser.Class({
     // }
     // // add collider
     // this.physics.add.overlap(this.player, this.spawns, this.onMeetEnemy, false, this);
-  },
+  //
     
     
-  onMeetEnemy: function(player, zone) {
-    // we move the zone to some other location
-    // zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-    // zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-    // shake the world
-    //this.cameras.main.shake(300);
-    // start battle
   },
     
     
@@ -258,7 +254,18 @@ var WorldScene = new Phaser.Class({
     }
 
     //
-  }
+  },
+  
+   onMeetEnemy: function(player, zone) {
+    // we move the zone to some other location
+    // zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+    // zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+    // shake the world
+    //this.cameras.main.shake(300);
+    // start battle
+  },
+
+  
 });
 
 var config = {
@@ -278,3 +285,4 @@ var config = {
   scene: [BootScene, WorldScene]
 };
 var game = new Phaser.Game(config);
+
