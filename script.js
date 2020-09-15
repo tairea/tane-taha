@@ -57,7 +57,7 @@ var WorldScene = new Phaser.Class({
   },
 
   create: function() {
-    this.timeLeft = gameOptions.initialTime;
+    this.timeLeft = 100;
 
     console.log(game.config.width);
     console.log(game.config.height);
@@ -91,6 +91,12 @@ var WorldScene = new Phaser.Class({
       energyContainerTaha2.y,
       "energybar"
     );
+    // a copy of the energy bar to be used as a mask. Another simple sprite but...
+    this.energyMaskTaha2 = this.add.sprite(energyBarTaha2.x, energyBarTaha2.y, "energybar");
+    // ...it's not visible...
+    this.energyMaskTaha2.visible = false;
+    // and we assign it as energyBar's mask.
+    energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha2);
     
      // ========== TAHA 3 BAR
     // the energy container. A simple sprite
@@ -103,6 +109,12 @@ var WorldScene = new Phaser.Class({
       energyContainerTaha3.y,
       "energybar"
     );
+    // a copy of the energy bar to be used as a mask. Another simple sprite but...
+    this.energyMaskTaha3 = this.add.sprite(energyBarTaha3.x, energyBarTaha3.y, "energybar");
+    // ...it's not visible...
+    this.energyMaskTaha3.visible = false;
+    // and we assign it as energyBar's mask.
+    energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha3);
     
       // ========== TAHA 4 BAR
     // the energy container. A simple sprite
@@ -116,11 +128,11 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
-    this.energyMaskTaha1 = this.add.sprite(energyBarTaha1.x, energyBarTaha1.y, "energybar");
+    this.energyMaskTaha4 = this.add.sprite(energyBarTaha4.x, energyBarTaha4.y, "energybar");
     // ...it's not visible...
-    this.energyMaskTaha1.visible = false;
+    this.energyMaskTaha4.visible = false;
     // and we assign it as energyBar's mask.
-    energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha1);
+    energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha4);
   
     
 
@@ -132,12 +144,13 @@ var WorldScene = new Phaser.Class({
 
         // dividing enery bar width by the number of seconds gives us the amount
         // of pixels we need to move the energy bar each second
-        let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
+        let stepWidth = this.energyMaskTaha1.displayWidth / 100;
 
         // moving the mask
-        this.energyMask.x -= stepWidth;
+        this.energyMaskTaha1.x -= stepWidth;
         if (this.timeLeft == 0) {
-          this.scene.start("PlayGame");
+          //this.scene.start("PlayGame");
+          console.log("taha 1 empty")
         }
       },
       callbackScope: this,
