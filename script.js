@@ -91,13 +91,37 @@ var WorldScene = new Phaser.Class({
       energyContainerTaha2.y,
       "energybar"
     );
+    
+     // ========== TAHA 3 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha3 = this.add.sprite(490, 10, "energycontainer");
+    energyContainerTaha3.setDepth(100);
+    energyContainerTaha3.setScale(0.2);
+    // the energy bar. Another simple sprite
+    let energyBarTaha3 = this.add.sprite(
+      energyContainerTaha3.x + 46,
+      energyContainerTaha3.y,
+      "energybar"
+    );
+    
+      // ========== TAHA 4 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha4 = this.add.sprite(490, 310, "energycontainer");
+    energyContainerTaha4.setDepth(100);
+    energyContainerTaha4.setScale(0.2);
+    // the energy bar. Another simple sprite
+    let energyBarTaha4 = this.add.sprite(
+      energyContainerTaha4.x + 46,
+      energyContainerTaha4.y,
+      "energybar"
+    );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha1 = this.add.sprite(energyBarTaha1.x, energyBarTaha1.y, "energybar");
     // ...it's not visible...
     this.energyMaskTaha1.visible = false;
     // and we assign it as energyBar's mask.
     energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha1);
-    
+  
     
 
     // a boring timer.
