@@ -59,9 +59,9 @@ var WorldScene = new Phaser.Class({
     console.log(game.config.height)
  
         // the energy container. A simple sprite
-        let energyContainer = this.add.sprite(game.config.width / 2, game.config.height / 2, "energycontainer");
+        let energyContainer = this.add.sprite(160, 10, "energycontainer");
         energyContainer.setDepth(100)
-    energyContainer.setScale(0.5)
+    energyContainer.setScale(0.2)
     
         // the energy bar. Another simple sprite
         let energyBar = this.add.sprite(energyContainer.x + 46, energyContainer.y, "energybar");
