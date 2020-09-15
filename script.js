@@ -80,7 +80,23 @@ var WorldScene = new Phaser.Class({
     // and we assign it as energyBar's mask.
     energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha1);
     
-    
+    // ========== TAHA 2 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha2 = this.add.sprite(160, 310, "energycontainer");
+    energyContainerTaha2.setDepth(100);
+    energyContainerTaha2.setScale(0.2);
+    // the energy bar. Another simple sprite
+    let energyBarTaha2 = this.add.sprite(
+      energyContainerTaha2.x + 46,
+      energyContainerTaha2.y,
+      "energybar"
+    );
+    // a copy of the energy bar to be used as a mask. Another simple sprite but...
+    this.energyMaskTaha1 = this.add.sprite(energyBarTaha1.x, energyBarTaha1.y, "energybar");
+    // ...it's not visible...
+    this.energyMaskTaha1.visible = false;
+    // and we assign it as energyBar's mask.
+    energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha1);
     
     
 
