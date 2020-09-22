@@ -21,6 +21,13 @@ var BootScene = new Phaser.Class({
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Frpg-girl-sprite.png?v=1599531666710",
       { frameWidth: 17, frameHeight: 17 }
     );
+
+    // our two characters
+    this.load.spritesheet(
+      "enemies",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FFour-monsters%20copy.png?v=1600733851161",
+      { frameWidth: 32, frameHeight: 32 }
+    );
   },
 
   create: function() {
@@ -74,12 +81,19 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
-    this.energyMaskTaha1 = this.add.sprite(energyBarTaha1.x, energyBarTaha1.y, "energybar");
+    this.energyMaskTaha1 = this.add.sprite(
+      energyBarTaha1.x,
+      energyBarTaha1.y,
+      "energybar"
+    );
     // ...it's not visible...
     this.energyMaskTaha1.visible = false;
     // and we assign it as energyBar's mask.
-    energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha1);
-    
+    energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      this.energyMaskTaha1
+    );
+
     // ========== TAHA 2 BAR
     // the energy container. A simple sprite
     let energyContainerTaha2 = this.add.sprite(160, 310, "energycontainer");
@@ -92,13 +106,20 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
-    this.energyMaskTaha2 = this.add.sprite(energyBarTaha2.x, energyBarTaha2.y, "energybar");
+    this.energyMaskTaha2 = this.add.sprite(
+      energyBarTaha2.x,
+      energyBarTaha2.y,
+      "energybar"
+    );
     // ...it's not visible...
     this.energyMaskTaha2.visible = false;
     // and we assign it as energyBar's mask.
-    energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha2);
-    
-     // ========== TAHA 3 BAR
+    energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      this.energyMaskTaha2
+    );
+
+    // ========== TAHA 3 BAR
     // the energy container. A simple sprite
     let energyContainerTaha3 = this.add.sprite(490, 10, "energycontainer");
     energyContainerTaha3.setDepth(100);
@@ -110,13 +131,20 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
-    this.energyMaskTaha3 = this.add.sprite(energyBarTaha3.x, energyBarTaha3.y, "energybar");
+    this.energyMaskTaha3 = this.add.sprite(
+      energyBarTaha3.x,
+      energyBarTaha3.y,
+      "energybar"
+    );
     // ...it's not visible...
     this.energyMaskTaha3.visible = false;
     // and we assign it as energyBar's mask.
-    energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha3);
-    
-      // ========== TAHA 4 BAR
+    energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      this.energyMaskTaha3
+    );
+
+    // ========== TAHA 4 BAR
     // the energy container. A simple sprite
     let energyContainerTaha4 = this.add.sprite(490, 310, "energycontainer");
     energyContainerTaha4.setDepth(100);
@@ -128,13 +156,18 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
-    this.energyMaskTaha4 = this.add.sprite(energyBarTaha4.x, energyBarTaha4.y, "energybar");
+    this.energyMaskTaha4 = this.add.sprite(
+      energyBarTaha4.x,
+      energyBarTaha4.y,
+      "energybar"
+    );
     // ...it's not visible...
     this.energyMaskTaha4.visible = false;
     // and we assign it as energyBar's mask.
-    energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask(this, this.energyMaskTaha4);
-  
-    
+    energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask(
+      this,
+      this.energyMaskTaha4
+    );
 
     // a boring timer.
     this.gameTimer = this.time.addEvent({
@@ -150,7 +183,7 @@ var WorldScene = new Phaser.Class({
         this.energyMaskTaha1.x -= stepWidth;
         if (this.timeLeft == 0) {
           //this.scene.start("PlayGame");
-          console.log("taha 1 empty")
+          console.log("taha 1 empty");
         }
       },
       callbackScope: this,
@@ -208,6 +241,25 @@ var WorldScene = new Phaser.Class({
       repeat: -1
     });
 
+    // frisk
+    this.anims.create({
+      key: "friskDown",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 2] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "friskLeft",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 9] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "friskDown",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [21, 33] }),
+      frameRate: 10,
+      repeat: -1
+    });
     // our player sprite created through the phycis system
     this.player = this.physics.add.sprite(50, 100, "player", 6);
 
