@@ -292,49 +292,18 @@ var WorldScene = new Phaser.Class({
       repeat: -1
     });
     // chara
-    this.anims.create({
-      key: "friskDown",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 2] }),
-      frameRate: 10,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "friskLeft",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 9] }),
-      frameRate: 10,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "friskUp",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [21, 33] }),
-      frameRate: 10,
-      repeat: -1
-    });
-     this.anims.create({
-      key: "friskRight",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [14, 16] }),
-      frameRate: 10,
-      repeat: -1
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    this.anims.create({
-      key: "friskRight",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [14, 16] }),
-      frameRate: 10,
-      repeat: -1
-    });
+
     
     
     
     // our player sprite created through the phycis system
     this.player = this.physics.add.sprite(50, 100, "player", 6);
+    
+    
+    this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
+    this.frisk.play("friskDown")
+    
+    
 
     // don't go out of the map
     this.physics.world.bounds.width = map.widthInPixels;
@@ -398,7 +367,10 @@ var WorldScene = new Phaser.Class({
     } else {
       this.player.anims.stop();
     }
-
+    
+    //FRISK CONTROLS
+    // Horizontal movement
+   
     // check if player in area 1
     if (
       this.player.x > area1.x &&
