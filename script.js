@@ -275,6 +275,31 @@ var WorldScene = new Phaser.Class({
     });
     this.anims.create({
       key: "sansLeft",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [10, 12] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "sansUp",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [24, 26] }),
+      frameRate: 10,
+      repeat: -1
+    });
+     this.anims.create({
+      key: "sansRight",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [17, 19] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    // chara
+    this.anims.create({
+      key: "friskDown",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 2] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "friskLeft",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 9] }),
       frameRate: 10,
       repeat: -1
@@ -286,6 +311,20 @@ var WorldScene = new Phaser.Class({
       repeat: -1
     });
      this.anims.create({
+      key: "friskRight",
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [14, 16] }),
+      frameRate: 10,
+      repeat: -1
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    this.anims.create({
       key: "friskRight",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [14, 16] }),
       frameRate: 10,
