@@ -76,7 +76,7 @@ var WorldScene = new Phaser.Class({
     energyContainerTaha1.setScale(0.2);
     // the energy bar. Another simple sprite
     let energyBarTaha1 = this.add.sprite(
-      energyContainerTaha1.x + 46,
+      energyContainerTaha1.x + (47*0.2),
       energyContainerTaha1.y,
       "energybar"
     );
@@ -87,12 +87,14 @@ var WorldScene = new Phaser.Class({
       "energybar"
     );
     // ...it's not visible...
-    this.energyMaskTaha1.visible = false;
+    this.energyMaskTaha1.visible = true;
     // and we assign it as energyBar's mask.
     energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask(
       this,
       this.energyMaskTaha1
     );
+    energyBarTaha1.setDepth(150);
+    energyBarTaha1.setScale(0.2)
 
     // ========== TAHA 2 BAR
     // the energy container. A simple sprite
@@ -169,6 +171,7 @@ var WorldScene = new Phaser.Class({
       this.energyMaskTaha4
     );
 
+    // ======== MAKER TIMERS MOVE
     // a boring timer.
     this.gameTimer = this.time.addEvent({
       delay: 1000,
@@ -300,8 +303,8 @@ var WorldScene = new Phaser.Class({
     this.player = this.physics.add.sprite(50, 100, "player", 6);
     
     
-    this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
-    this.frisk.play("friskDown")
+    // this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
+    // this.frisk.play("friskDown")
     
     
 
