@@ -205,19 +205,20 @@ var WorldScene = new Phaser.Class({
     this.area3 = map.findObject("areas", obj => obj.name === "area3");
     this.area4 = map.findObject("areas", obj => obj.name === "area4");
     this.center = map.findObject("areas", obj => obj.name === "center");
+    
 
     this.items = this.physics.add.group({
       allowGravity: false,
       immovable: true
     });
+    
+    this.area1  = this.items.create(this.area1.x, this.area1.y - this.area1.height, 'door').setOrigin(0, 0);
+    
 
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
     
-    this.physics.add.overlap(this.player, this.area1, inTaha1, null, this);
-    this.physics.add.overlap(this.player, this.area2, inTaha2, null, this);
-    this.physics.add.overlap(this.player, this.area3, inTaha3, null, this);
-    this.physics.add.overlap(this.player, this.area4, inTaha4, null, this);
+
 
     // platforms.setCollisionByExclusion([-1]);
 
@@ -306,6 +307,16 @@ var WorldScene = new Phaser.Class({
     
     // our player sprite created through the phycis system
     this.player = this.physics.add.sprite(50, 100, "player", 6);
+    
+    this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
+    this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
+    this.physics.add.overlap(this.player, this.area3, this.inTaha3, null, this);
+    this.physics.add.overlap(this.player, this.area4, this.inTaha4, null, this);
+    
+    console.log("this.area1",this.area1)
+    console.log("this.area2",this.area2)
+    console.log("this.area3",this.area3)
+    console.log("this.area4",this.area4)
     
     
     // this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
@@ -461,6 +472,22 @@ var WorldScene = new Phaser.Class({
     //this.cameras.main.shake(300);
     // start battle
   },
+  
+  inTaha1: function(player,area) {
+    console.log("in taha 1")
+  },
+
+  inTaha2: function(player,area) {
+    console.log("in taha 2")
+  },
+
+  inTaha3: function(player, area) {
+    console.log("in taha 3")
+  },
+  
+  inTaha4: function(player, area) {
+    console.log("in taha 4")
+  }
     
   
     
@@ -478,24 +505,12 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: false // set to true to view zones
+      debug: true // set to true to view zones
     }
   },
   scene: [BootScene, WorldScene]
 };
+
 var game = new Phaser.Game(config);
 
-function inTaha1() {
-    console.log("in taha 1")
-  }
 
-  function inTaha2() {
-    console.log("in taha 2")
-  }
-
-  function inTaha3() {
-    console.log("in taha 3")
-  }
-  function inTaha4() {
-    console.log("in taha 4")
-  }
