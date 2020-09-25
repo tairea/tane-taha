@@ -6,15 +6,16 @@ var BootScene = new Phaser.Class({
 
   preload: function() {
     // map tiles
-    this.load.image(
-      "tiles",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183"
-    );
+    this.load.image("tiles","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183");
     // map in json format
-    this.load.tilemapTiledJSON(
-      "map",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
-    );
+    this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606" );
+    
+    //taha images
+    this.load.image("taha1","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha1.png?v=1601024886010");
+    this.load.image("taha2","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha2.png?v=1601024886010");
+    this.load.image("taha3","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha3.png?v=1601024886010");
+    this.load.image("taha4","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha4.png?v=1601024886010");
+    
     // our two characters
     this.load.spritesheet(
       "player",
@@ -212,7 +213,10 @@ var WorldScene = new Phaser.Class({
       immovable: true
     });
     
-    this.area1  = this.items.create(this.area1.x, this.area1.y - this.area1.height, 'door').setOrigin(0, 0);
+    this.area1  = this.items.create(this.area1.x, this.area1.y - this.area1.height).setOrigin(0, 0);
+    this.area2  = this.items.create(this.area2.x, this.area2.y - this.area2.height).setOrigin(0, 0);
+    this.area3  = this.items.create(this.area3.x, this.area3.y - this.area3.height).setOrigin(0, 0);
+    this.area4  = this.items.create(this.area4.x, this.area4.y - this.area4.height).setOrigin(0, 0);
     
 
     // make all tiles in obstacles collidable
