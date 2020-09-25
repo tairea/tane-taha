@@ -200,11 +200,11 @@ var WorldScene = new Phaser.Class({
     var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
 
     // creating the areas
-    area1 = map.findObject("areas", obj => obj.name === "area1");
-    area2 = map.findObject("areas", obj => obj.name === "area2");
-    area3 = map.findObject("areas", obj => obj.name === "area3");
-    area4 = map.findObject("areas", obj => obj.name === "area4");
-    center = map.findObject("areas", obj => obj.name === "center");
+    this.area1 = map.findObject("areas", obj => obj.name === "area1");
+    this.area2 = map.findObject("areas", obj => obj.name === "area2");
+    this.area3 = map.findObject("areas", obj => obj.name === "area3");
+    this.area4 = map.findObject("areas", obj => obj.name === "area4");
+    this.center = map.findObject("areas", obj => obj.name === "center");
 
     this.items = this.physics.add.group({
       allowGravity: false,
@@ -213,6 +213,11 @@ var WorldScene = new Phaser.Class({
 
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
+    
+    this.physics.add.overlap(this.player, this.area1, inTaha1, null, this);
+    this.physics.add.overlap(this.player, this.area2, inTaha2, null, this);
+    this.physics.add.overlap(this.player, this.area3, inTaha3, null, this);
+    this.physics.add.overlap(this.player, this.area4, inTaha4, null, this);
 
     // platforms.setCollisionByExclusion([-1]);
 
@@ -376,73 +381,74 @@ var WorldScene = new Phaser.Class({
     // Horizontal movement
    
     // check if player in area 1
-    if (
-      this.player.x > area1.x &&
-      this.player.x < area1.x + area1.width &&
-      this.player.y > area1.y &&
-      this.player.y < area1.y + area1.height
-    ) {
-      console.log("player is in TAHA 1");
+    // if (
+    //   this.player.x > area1.x &&
+    //   this.player.x < area1.x + area1.width &&
+    //   this.player.y > area1.y &&
+    //   this.player.y < area1.y + area1.height
+    // ) {
+    //   console.log("player is in TAHA 1");
       // ======== MAKE TIMERS MOVE
       // dividing enery bar width by the number of seconds gives us the amount
       // of pixels we need to move the energy bar each second
       
       // increase the mask
-       this.gameTimer = this.time.addEvent({
-            delay: 1000,
-            callback: () => {
-              gameOptions.taha1Count++;
-              if (gameOptions.taha1Count !== 125) {
-                console.log("taha1: ",gameOptions.taha1Count)
-                this.energyMaskTaha1.x++;  
-              } else {
-                gameOptions.taha1Count = 0;
-                this.gameTimer.remove()
-              }  
-            },
-            callbackScope: this,
-            loop: true
-        });
-    }
-    else {
+//        this.gameTimer = this.time.addEvent({
+//             delay: 1000,
+//             callback: () => {
+//               gameOptions.taha1Count++;
+//               if (gameOptions.taha1Count !== 125) {
+//                 console.log("taha1: ",gameOptions.taha1Count)
+//                 this.energyMaskTaha1.x++;  
+//               } else {
+//                 gameOptions.taha1Count = 0;
+//                 this.gameTimer.remove()
+//               }  
+//             },
+//             callbackScope: this,
+//             loop: true
+//         });
+//     }
+//     else {
       
-      if (this.gameTimer) {
-        console.log("stopping timer")
-        this.gameTimer.remove()
-      }
-    }
-    if (
-      this.player.x > area2.x &&
-      this.player.x < area2.x + area2.width &&
-      this.player.y > area2.y &&
-      this.player.y < area2.y + area2.height
-    ) {
-      console.log("player is in TAHA 2");
-    }
-    if (
-      this.player.x > area3.x &&
-      this.player.x < area3.x + area3.width &&
-      this.player.y > area3.y &&
-      this.player.y < area3.y + area3.height
-    ) {
-      console.log("player is in TAHA 3");
-    }
-    if (
-      this.player.x > area4.x &&
-      this.player.x < area4.x + area4.width &&
-      this.player.y > area4.y &&
-      this.player.y < area4.y + area4.height
-    ) {
-      console.log("player is in TAHA 4");
-    }
-    if (
-      this.player.x > center.x &&
-      this.player.x < center.x + center.width &&
-      this.player.y > center.y &&
-      this.player.y < center.y + center.height
-    ) {
-      console.log("player is in CENTER");
-    }
+//       if (this.gameTimer) {
+//         console.log("stopping timer")
+//         this.gameTimer.paused = true;
+
+//       }
+//     }
+    // if (
+    //   this.player.x > area2.x &&
+    //   this.player.x < area2.x + area2.width &&
+    //   this.player.y > area2.y &&
+    //   this.player.y < area2.y + area2.height
+    // ) {
+    //   console.log("player is in TAHA 2");
+    // }
+    // if (
+    //   this.player.x > area3.x &&
+    //   this.player.x < area3.x + area3.width &&
+    //   this.player.y > area3.y &&
+    //   this.player.y < area3.y + area3.height
+    // ) {
+    //   console.log("player is in TAHA 3");
+    // }
+    // if (
+    //   this.player.x > area4.x &&
+    //   this.player.x < area4.x + area4.width &&
+    //   this.player.y > area4.y &&
+    //   this.player.y < area4.y + area4.height
+    // ) {
+    //   console.log("player is in TAHA 4");
+    // }
+    // if (
+    //   this.player.x > center.x &&
+    //   this.player.x < center.x + center.width &&
+    //   this.player.y > center.y &&
+    //   this.player.y < center.y + center.height
+    // ) {
+    //   console.log("player is in CENTER");
+    // }
 
     //
   },
@@ -454,7 +460,11 @@ var WorldScene = new Phaser.Class({
     // shake the world
     //this.cameras.main.shake(300);
     // start battle
-  }
+  },
+    
+  
+    
+    
 });
 
 var config = {
@@ -474,3 +484,18 @@ var config = {
   scene: [BootScene, WorldScene]
 };
 var game = new Phaser.Game(config);
+
+function inTaha1() {
+    console.log("in taha 1")
+  }
+
+  function inTaha2() {
+    console.log("in taha 2")
+  }
+
+  function inTaha3() {
+    console.log("in taha 3")
+  }
+  function inTaha4() {
+    console.log("in taha 4")
+  }
