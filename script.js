@@ -79,24 +79,24 @@ var WorldScene = new Phaser.Class({
     // the energy container. A simple sprite
     let energyContainerTaha1 = this.add.sprite(160, 10, "energycontainer");
     energyContainerTaha1.setDepth(100);
-    energyContainerTaha1.setScale(0.25);
+    energyContainerTaha1.setScale(0.2);
     
     // the energy bar. Another simple sprite
     let energyBarTaha1 = this.add.sprite(
-      energyContainerTaha1.x + (46*0.25),
-      energyContainerTaha1.y-0.25,
+      energyContainerTaha1.x + (46*0.20),
+      energyContainerTaha1.y,
       "energybar"
     );
     energyBarTaha1.setDepth(150);
-    energyBarTaha1.setScale(0.25)
+    energyBarTaha1.setScale(0.205)
     
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha1 = this.add.sprite(
-      energyBarTaha1.x - 125,
+      energyBarTaha1.x,
       energyBarTaha1.y,
       "energybar"
     );
-    this.energyMaskTaha1.setScale(0.25)
+    this.energyMaskTaha1.setScale(0.205)
     //energybar width is 500px (at 0.25 scale energybar width is 125px)
     
     
@@ -215,10 +215,12 @@ var WorldScene = new Phaser.Class({
       immovable: true
     });
     
-    this.area1  = this.items.create(this.area1.x, this.area1.y, 'taha4').setOrigin(0, 0).setScale(4);
-    this.area2  = this.items.create(this.area2.x, this.area2.y).setOrigin(0, 0).setScale(2.5);
-    this.area3  = this.items.create(this.area3.x, this.area3.y).setOrigin(0, 0).setScale(2.5);
-    this.area4  = this.items.create(this.area4.x, this.area4.y).setOrigin(0, 0).setScale(2.5);
+    this.area1  = this.items.create(this.area1.x, this.area1.y, 'taha1').setOrigin(0, 0).setScale(5).setDepth(200);
+    this.area2  = this.items.create(this.area2.x, this.area2.y, 'taha2').setOrigin(0, 0).setScale(5).setDepth(200);
+    this.area3  = this.items.create(this.area3.x, this.area3.y, 'taha3').setOrigin(0, 0).setScale(5).setDepth(200);
+    this.area4  = this.items.create(this.area4.x, this.area4.y, 'taha4').setOrigin(0, 0).setScale(5).setDepth(200);
+    
+    this.center  = this.items.create(this.center.x, this.center.y).setOrigin(0, 0).setScale(5).setDepth(200);
     
     
     // make all tiles in obstacles collidable
@@ -228,6 +230,7 @@ var WorldScene = new Phaser.Class({
      
     // our player sprite created through the phycis system
     this.player = this.physics.add.sprite(50, 100, "player", 6);
+    this.player.setDepth(250)
     
     this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
     this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
@@ -402,7 +405,7 @@ var WorldScene = new Phaser.Class({
   inTaha1: function(player,area) {
     console.log("in taha 1")
     gameOptions.taha1Count++
-    if (gameOptions.taha1Count <= 125) {
+    if (gameOptions.taha1Count <= 100) {
       this.energyMaskTaha1.x++  
     }
   },
