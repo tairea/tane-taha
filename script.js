@@ -199,6 +199,8 @@ var WorldScene = new Phaser.Class({
 
     // first parameter is the name of the tilemap in tiled
     var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
+    
+    
 
     // creating the areas
     this.area1 = map.findObject("areas", obj => obj.name === "area1");
@@ -213,18 +215,28 @@ var WorldScene = new Phaser.Class({
       immovable: true
     });
     
-    this.area1  = this.items.create(this.area1.x, this.area1.y - this.area1.height).setOrigin(0, 0);
-    this.area2  = this.items.create(this.area2.x, this.area2.y - this.area2.height).setOrigin(0, 0);
-    this.area3  = this.items.create(this.area3.x, this.area3.y - this.area3.height).setOrigin(0, 0);
-    this.area4  = this.items.create(this.area4.x, this.area4.y - this.area4.height).setOrigin(0, 0);
+    this.area1  = this.items.create(this.area1.x, this.area1.y, 'taha4').setOrigin(0, 0).setScale(4);
+    this.area2  = this.items.create(this.area2.x, this.area2.y).setOrigin(0, 0).setScale(2.5);
+    this.area3  = this.items.create(this.area3.x, this.area3.y).setOrigin(0, 0).setScale(2.5);
+    this.area4  = this.items.create(this.area4.x, this.area4.y).setOrigin(0, 0).setScale(2.5);
     
-
+    
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
+    // platforms.setCollisionByExclusion([-1]);
+    
+     
+    // our player sprite created through the phycis system
+    this.player = this.physics.add.sprite(50, 100, "player", 6);
+    
+    this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
+    this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
+    this.physics.add.overlap(this.player, this.area3, this.inTaha3, null, this);
+    this.physics.add.overlap(this.player, this.area4, this.inTaha4, null, this);
+    
     
 
-
-    // platforms.setCollisionByExclusion([-1]);
+    
 
     //  animation with key 'left', we don't need left and right as we will use one and flip the sprite
     this.anims.create({
@@ -305,22 +317,6 @@ var WorldScene = new Phaser.Class({
       repeat: -1
     });
     // chara
-
-    
-    
-    
-    // our player sprite created through the phycis system
-    this.player = this.physics.add.sprite(50, 100, "player", 6);
-    
-    this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
-    this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
-    this.physics.add.overlap(this.player, this.area3, this.inTaha3, null, this);
-    this.physics.add.overlap(this.player, this.area4, this.inTaha4, null, this);
-    
-    console.log("this.area1",this.area1)
-    console.log("this.area2",this.area2)
-    console.log("this.area3",this.area3)
-    console.log("this.area4",this.area4)
     
     
     // this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
@@ -392,80 +388,6 @@ var WorldScene = new Phaser.Class({
       this.player.anims.stop();
     }
     
-    //FRISK CONTROLS
-    // Horizontal movement
-   
-    // check if player in area 1
-    // if (
-    //   this.player.x > area1.x &&
-    //   this.player.x < area1.x + area1.width &&
-    //   this.player.y > area1.y &&
-    //   this.player.y < area1.y + area1.height
-    // ) {
-    //   console.log("player is in TAHA 1");
-      // ======== MAKE TIMERS MOVE
-      // dividing enery bar width by the number of seconds gives us the amount
-      // of pixels we need to move the energy bar each second
-      
-      // increase the mask
-//        this.gameTimer = this.time.addEvent({
-//             delay: 1000,
-//             callback: () => {
-//               gameOptions.taha1Count++;
-//               if (gameOptions.taha1Count !== 125) {
-//                 console.log("taha1: ",gameOptions.taha1Count)
-//                 this.energyMaskTaha1.x++;  
-//               } else {
-//                 gameOptions.taha1Count = 0;
-//                 this.gameTimer.remove()
-//               }  
-//             },
-//             callbackScope: this,
-//             loop: true
-//         });
-//     }
-//     else {
-      
-//       if (this.gameTimer) {
-//         console.log("stopping timer")
-//         this.gameTimer.paused = true;
-
-//       }
-//     }
-    // if (
-    //   this.player.x > area2.x &&
-    //   this.player.x < area2.x + area2.width &&
-    //   this.player.y > area2.y &&
-    //   this.player.y < area2.y + area2.height
-    // ) {
-    //   console.log("player is in TAHA 2");
-    // }
-    // if (
-    //   this.player.x > area3.x &&
-    //   this.player.x < area3.x + area3.width &&
-    //   this.player.y > area3.y &&
-    //   this.player.y < area3.y + area3.height
-    // ) {
-    //   console.log("player is in TAHA 3");
-    // }
-    // if (
-    //   this.player.x > area4.x &&
-    //   this.player.x < area4.x + area4.width &&
-    //   this.player.y > area4.y &&
-    //   this.player.y < area4.y + area4.height
-    // ) {
-    //   console.log("player is in TAHA 4");
-    // }
-    // if (
-    //   this.player.x > center.x &&
-    //   this.player.x < center.x + center.width &&
-    //   this.player.y > center.y &&
-    //   this.player.y < center.y + center.height
-    // ) {
-    //   console.log("player is in CENTER");
-    // }
-
-    //
   },
 
   onMeetEnemy: function(player, zone) {
@@ -479,6 +401,10 @@ var WorldScene = new Phaser.Class({
   
   inTaha1: function(player,area) {
     console.log("in taha 1")
+    gameOptions.taha1Count++
+    if (gameOptions.taha1Count <= 125) {
+      this.energyMaskTaha1.x++  
+    }
   },
 
   inTaha2: function(player,area) {
@@ -509,7 +435,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true // set to true to view zones
+      debug: false // set to true to view zones
     }
   },
   scene: [BootScene, WorldScene]
