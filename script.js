@@ -366,24 +366,28 @@ var WorldScene = new Phaser.Class({
       this.energyMaskTaha1.x--    
     } else {
       this.energyMaskTaha1.x = this.energyBarTaha1.x - 100
+      gameOptions.taha1Count = 0
     }
     if (gameOptions.taha2Count > 0) {
       gameOptions.taha2Count--
       this.energyMaskTaha2.x--    
     } else {
       this.energyMaskTaha2.x = this.energyBarTaha2.x - 100
+      gameOptions.taha2Count = 0
     }
     if (gameOptions.taha3Count > 0) {
       gameOptions.taha3Count--
       this.energyMaskTaha3.x--    
     } else {
       this.energyMaskTaha3.x = this.energyBarTaha3.x - 100
+      gameOptions.taha3Count = 0
     }
     if (gameOptions.taha4Count > 0) {
       gameOptions.taha4Count--
       this.energyMaskTaha4.x--    
     } else {
       this.energyMaskTaha4.x = this.energyBarTaha4.x - 100
+      gameOptions.taha4Count = 0
     }
     
   }
