@@ -65,6 +65,7 @@ var WorldScene = new Phaser.Class({
 
   create: function() {
     this.timeLeft = 100;
+    
 
     console.log(game.config.width);
     console.log(game.config.height);
@@ -171,27 +172,10 @@ var WorldScene = new Phaser.Class({
       this.energyMaskTaha4
     );
 
-    // ======== MAKER TIMERS MOVE
-    // a boring timer.
-    this.gameTimer = this.time.addEvent({
-      delay: 1000,
-      callback: function() {
-        this.timeLeft--;
-
-        // dividing enery bar width by the number of seconds gives us the amount
-        // of pixels we need to move the energy bar each second
-        let stepWidth = this.energyMaskTaha1.displayWidth / 100;
-
-        // moving the mask
-        this.energyMaskTaha1.x -= stepWidth;
-        if (this.timeLeft == 0) {
-          //this.scene.start("PlayGame");
-          console.log("taha 1 empty");
-        }
-      },
-      callbackScope: this,
-      loop: true
-    });
+    // set step with of mask bars
+    this.stepWidth = this.energyMaskTaha1.displayWidth / 100;
+    
+    
 
     // create the map
     var map = this.make.tilemap({ key: "map" });
@@ -338,6 +322,7 @@ var WorldScene = new Phaser.Class({
   },
 
   update: function(time, delta) {
+    
     //    this.controls.update(delta);
 
     this.player.body.setVelocity(0);
@@ -382,6 +367,30 @@ var WorldScene = new Phaser.Class({
       this.player.y < area1.y + area1.height
     ) {
       console.log("player is in TAHA 1");
+      // ======== MAKE TIMERS MOVE
+      // dividing enery bar width by the number of seconds gives us the amount
+      // of pixels we need to move the energy bar each second
+      
+      // increase the mask
+//        this.gameTimer = this.time.addEvent({
+//             delay: 1000,
+//             callback: function(){
+
+ 
+//                 // dividing enery bar width by the number of seconds gives us the amount
+//                 // of pixels we need to move the energy bar each second
+//                 let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
+ 
+//                 // moving the mask
+//                 this.energyMask.x -= stepWidth;
+//                 if(this.timeLeft == 0){
+//                     this.scene.start("PlayGame")
+//                 }
+//             },
+//             callbackScope: this,
+//             loop: true
+//         });
+      this.energyMaskTaha1.x += stepWidth;
     }
     if (
       this.player.x > area2.x &&
