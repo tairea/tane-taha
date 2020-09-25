@@ -74,19 +74,29 @@ var WorldScene = new Phaser.Class({
     // the energy container. A simple sprite
     let energyContainerTaha1 = this.add.sprite(160, 10, "energycontainer");
     energyContainerTaha1.setDepth(100);
-    energyContainerTaha1.setScale(0.2);
+    energyContainerTaha1.setScale(0.25);
+    
     // the energy bar. Another simple sprite
     let energyBarTaha1 = this.add.sprite(
-      energyContainerTaha1.x + (47*0.2),
-      energyContainerTaha1.y,
+      energyContainerTaha1.x + (46*0.25),
+      energyContainerTaha1.y-0.25,
       "energybar"
     );
+    energyBarTaha1.setDepth(150);
+    energyBarTaha1.setScale(0.25)
+    
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha1 = this.add.sprite(
-      energyBarTaha1.x,
+      energyBarTaha1.x - 125,
       energyBarTaha1.y,
       "energybar"
     );
+    this.energyMaskTaha1.setScale(0.25)
+    //energybar width is 500px (at 0.25 scale energybar width is 125px)
+    
+    
+    console.log("this.energyMaskTaha1",this.energyMaskTaha1)
+    
     // ...it's not visible...
     this.energyMaskTaha1.visible = true;
     // and we assign it as energyBar's mask.
@@ -94,8 +104,7 @@ var WorldScene = new Phaser.Class({
       this,
       this.energyMaskTaha1
     );
-    energyBarTaha1.setDepth(150);
-    energyBarTaha1.setScale(0.2)
+    
 
     // ========== TAHA 2 BAR
     // the energy container. A simple sprite
@@ -173,7 +182,10 @@ var WorldScene = new Phaser.Class({
     );
 
     // set step with of mask bars
-    this.stepWidth = this.energyMaskTaha1.displayWidth / 100;
+    // this.stepWidth = this.energyMaskTaha1.displayWidth / 100;
+    
+    console.log('this.energyMaskTaha1.width',this.energyMaskTaha1.width)
+    console.log('this.energyMaskTaha1.x',this.energyMaskTaha1.x)
     
     
 
@@ -372,24 +384,24 @@ var WorldScene = new Phaser.Class({
       // of pixels we need to move the energy bar each second
       
       // increase the mask
-//        this.gameTimer = this.time.addEvent({
-//             delay: 1000,
-//             callback: function(){
+       this.gameTimer = this.time.addEvent({
+            delay: 1000,
+            callback: function(){
 
  
-//                 // dividing enery bar width by the number of seconds gives us the amount
-//                 // of pixels we need to move the energy bar each second
-//                 let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
+                // dividing enery bar width by the number of seconds gives us the amount
+                // of pixels we need to move the energy bar each second
+                let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
  
-//                 // moving the mask
-//                 this.energyMask.x -= stepWidth;
-//                 if(this.timeLeft == 0){
-//                     this.scene.start("PlayGame")
-//                 }
-//             },
-//             callbackScope: this,
-//             loop: true
-//         });
+                // moving the mask
+                this.energyMask.x -= stepWidth;
+                if(this.timeLeft == 0){
+                    this.scene.start("PlayGame")
+                }
+            },
+            callbackScope: this,
+            loop: true
+        });
       this.energyMaskTaha1.x += stepWidth;
     }
     if (
