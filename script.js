@@ -124,6 +124,45 @@ var WorldScene = new Phaser.Class({
 
     this.physics.add.overlap(this.player, this.center, this.inCenter, null, this);
     
+    
+    // ========== TAHA 1 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha1 = this.add.sprite(160, 10, "energycontainer").setScale(0.2)
+    // the energy bar. Another simple sprite
+    this.energyBarTaha1 = this.add.sprite( energyContainerTaha1.x + (46*0.20), energyContainerTaha1.y, "energybar" ).setScale(0.205);
+    // a copy of the energy bar to be used as a mask. Another simple sprite but...
+    //energybar width is 500px (at 0.2 scale energybar width is 100px)
+    this.energyMaskTaha1 = this.add.sprite( this.energyBarTaha1.x - 100, this.energyBarTaha1.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha1.visible = true;
+    // and we assign it as energyBar's mask.
+    this.energyBarTaha1.mask = new Phaser.Display.Masks.BitmapMask( this, this.energyMaskTaha1 );
+    
+    // ========== TAHA 2 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha2 = this.add.sprite(490, 10, "energycontainer").setScale(0.2)
+    this.energyBarTaha2 = this.add.sprite( energyContainerTaha2.x + (46*0.20), energyContainerTaha2.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha2 = this.add.sprite( this.energyBarTaha2.x -100 , this.energyBarTaha2.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha2.visible = true;
+    this.energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask( this, this.energyMaskTaha2 );
+
+    // ========== TAHA 3 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha3 = this.add.sprite(490, 310, "energycontainer").setScale(0.2)
+    this.energyBarTaha3 = this.add.sprite( energyContainerTaha3.x + (46*0.20), energyContainerTaha3.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha3 = this.add.sprite( this.energyBarTaha3.x -100, this.energyBarTaha3.y , "energybar" ).setScale(0.205)
+    this.energyMaskTaha3.visible = true;
+    this.energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask( this, this.energyMaskTaha3 );
+
+    // ========== TAHA 4 BAR
+    // the energy container. A simple sprite
+    let energyContainerTaha4 = this.add.sprite(160, 310, "energycontainer").setScale(0.2)
+    this.energyBarTaha4 = this.add.sprite( energyContainerTaha4.x + (46*0.20), energyContainerTaha4.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha4 = this.add.sprite( this.energyBarTaha4.x -100, this.energyBarTaha4.y, "energybar" ).setScale(0.205)
+    this.energyMaskTaha4.visible = true;
+    this.energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask( this, this.energyMaskTaha4 );
+
+    // create the map
+    
 
     
 
@@ -325,18 +364,26 @@ var WorldScene = new Phaser.Class({
     if (gameOptions.taha1Count > 0) {
       gameOptions.taha1Count--
       this.energyMaskTaha1.x--    
+    } else {
+      this.energyMaskTaha1.x = this.energyBarTaha1.x - 100
     }
     if (gameOptions.taha2Count > 0) {
       gameOptions.taha2Count--
       this.energyMaskTaha2.x--    
+    } else {
+      this.energyMaskTaha2.x = this.energyBarTaha2.x - 100
     }
     if (gameOptions.taha3Count > 0) {
       gameOptions.taha3Count--
       this.energyMaskTaha3.x--    
+    } else {
+      this.energyMaskTaha3.x = this.energyBarTaha3.x - 100
     }
     if (gameOptions.taha4Count > 0) {
       gameOptions.taha4Count--
       this.energyMaskTaha4.x--    
+    } else {
+      this.energyMaskTaha4.x = this.energyBarTaha4.x - 100
     }
     
   }
