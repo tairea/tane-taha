@@ -116,20 +116,25 @@ var WorldScene = new Phaser.Class({
     let energyContainerTaha2 = this.add.sprite(160, 310, "energycontainer");
     energyContainerTaha2.setDepth(100);
     energyContainerTaha2.setScale(0.2);
+    
     // the energy bar. Another simple sprite
     let energyBarTaha2 = this.add.sprite(
-      energyContainerTaha2.x + 46,
+      energyContainerTaha2.x + (46*0.2),
       energyContainerTaha2.y,
       "energybar"
     );
+    energyBarTaha2.setDepth(150);
+    energyBarTaha2.setScale(0.205)
+    
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha2 = this.add.sprite(
       energyBarTaha2.x,
       energyBarTaha2.y,
       "energybar"
     );
-    // ...it's not visible...
-    this.energyMaskTaha2.visible = false;
+    this.energyMaskTaha2.setScale(0.205)
+    this.energyMaskTaha2.visible = true;
+    
     // and we assign it as energyBar's mask.
     energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask(
       this,
@@ -141,20 +146,25 @@ var WorldScene = new Phaser.Class({
     let energyContainerTaha3 = this.add.sprite(490, 10, "energycontainer");
     energyContainerTaha3.setDepth(100);
     energyContainerTaha3.setScale(0.2);
+    
     // the energy bar. Another simple sprite
     let energyBarTaha3 = this.add.sprite(
-      energyContainerTaha3.x + 46,
+      energyContainerTaha3.x + (46*0.2),
       energyContainerTaha3.y,
       "energybar"
     );
+    energyBarTaha3.setDepth(350);
+    energyBarTaha3.setScale(0.205)
+    
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha3 = this.add.sprite(
       energyBarTaha3.x,
       energyBarTaha3.y,
       "energybar"
     );
-    // ...it's not visible...
-    this.energyMaskTaha3.visible = false;
+    this.energyMaskTaha3.setScale(0.205)
+    this.energyMaskTaha3.visible = true;
+    
     // and we assign it as energyBar's mask.
     energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask(
       this,
@@ -166,20 +176,25 @@ var WorldScene = new Phaser.Class({
     let energyContainerTaha4 = this.add.sprite(490, 310, "energycontainer");
     energyContainerTaha4.setDepth(100);
     energyContainerTaha4.setScale(0.2);
+    
     // the energy bar. Another simple sprite
     let energyBarTaha4 = this.add.sprite(
-      energyContainerTaha4.x + 46,
+      energyContainerTaha4.x + (46*0.2),
       energyContainerTaha4.y,
       "energybar"
     );
+    energyBarTaha4.setDepth(150);
+    energyBarTaha4.setScale(0.205)
+    
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha4 = this.add.sprite(
-      energyBarTaha4.x,
+      energyBarTaha4.x ,
       energyBarTaha4.y,
       "energybar"
     );
-    // ...it's not visible...
-    this.energyMaskTaha4.visible = false;
+    this.energyMaskTaha4.setScale(0.205)
+    this.energyMaskTaha4.visible = true;
+    
     // and we assign it as energyBar's mask.
     energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask(
       this,
@@ -214,22 +229,18 @@ var WorldScene = new Phaser.Class({
       allowGravity: false,
       immovable: true
     });
-    
-    this.area1  = this.items.create(this.area1.x, this.area1.y, 'taha1').setOrigin(0, 0).setScale(5).setDepth(200);
-    this.area2  = this.items.create(this.area2.x, this.area2.y, 'taha2').setOrigin(0, 0).setScale(5).setDepth(200);
-    this.area3  = this.items.create(this.area3.x, this.area3.y, 'taha3').setOrigin(0, 0).setScale(5).setDepth(200);
-    this.area4  = this.items.create(this.area4.x, this.area4.y, 'taha4').setOrigin(0, 0).setScale(5).setDepth(200);
+
     
     this.area1  = this.add.zone(this.area1.x, this.area1.y,this.area1.width, this.area1.height).setOrigin(0, 0);
-    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
-    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
-    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
+    this.area2  = this.add.zone(this.area2.x, this.area2.y,this.area2.width, this.area2.height).setOrigin(0, 0);
+    this.area3  = this.add.zone(this.area3.x, this.area3.y,this.area3.width, this.area3.height).setOrigin(0, 0);
+    this.area4  = this.add.zone(this.area4.x, this.area4.y,this.area4.width, this.area4.height).setOrigin(0, 0);
     this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
     
     this.physics.world.enable(this.area1)
-    this.physics.world.enable(this.center)
-    this.physics.world.enable(this.center)
-    this.physics.world.enable(this.center)
+    this.physics.world.enable(this.area2)
+    this.physics.world.enable(this.area3)
+    this.physics.world.enable(this.area4)
     this.physics.world.enable(this.center)
 
     
@@ -424,14 +435,26 @@ var WorldScene = new Phaser.Class({
 
   inTaha2: function(player,area) {
     console.log("in taha 2")
+    gameOptions.taha2Count++
+    if (gameOptions.taha2Count <= 100) {
+      this.energyMaskTaha2.x++  
+    }
   },
 
   inTaha3: function(player, area) {
     console.log("in taha 3")
+    gameOptions.taha3Count++
+    if (gameOptions.taha3Count <= 100) {
+      this.energyMaskTaha3.x++  
+    }
   },
   
   inTaha4: function(player, area) {
     console.log("in taha 4")
+    gameOptions.taha4Count++
+    if (gameOptions.taha4Count <= 100) {
+      this.energyMaskTaha4.x++  
+    }
   },
   
   inCenter: function(player, area) {
