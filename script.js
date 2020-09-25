@@ -92,7 +92,7 @@ var WorldScene = new Phaser.Class({
     
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     this.energyMaskTaha1 = this.add.sprite(
-      energyBarTaha1.x,
+      energyBarTaha1.x - 100,
       energyBarTaha1.y,
       "energybar"
     );
@@ -220,7 +220,18 @@ var WorldScene = new Phaser.Class({
     this.area3  = this.items.create(this.area3.x, this.area3.y, 'taha3').setOrigin(0, 0).setScale(5).setDepth(200);
     this.area4  = this.items.create(this.area4.x, this.area4.y, 'taha4').setOrigin(0, 0).setScale(5).setDepth(200);
     
-    this.center  = this.items.create(this.center.x, this.center.y).setOrigin(0, 0).setScale(5).setDepth(200);
+    this.area1  = this.add.zone(this.area1.x, this.area1.y,this.area1.width, this.area1.height).setOrigin(0, 0);
+    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
+    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
+    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
+    this.center  = this.add.zone(this.center.x, this.center.y,this.center.width, this.center.height).setOrigin(0, 0);
+    
+    this.physics.world.enable(this.area1)
+    this.physics.world.enable(this.center)
+    this.physics.world.enable(this.center)
+    this.physics.world.enable(this.center)
+    this.physics.world.enable(this.center)
+
     
     
     // make all tiles in obstacles collidable
@@ -236,7 +247,8 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
     this.physics.add.overlap(this.player, this.area3, this.inTaha3, null, this);
     this.physics.add.overlap(this.player, this.area4, this.inTaha4, null, this);
-    
+
+    this.physics.add.overlap(this.player, this.center, this.inCenter, null, this);
     
 
     
@@ -420,6 +432,27 @@ var WorldScene = new Phaser.Class({
   
   inTaha4: function(player, area) {
     console.log("in taha 4")
+  },
+  
+  inCenter: function(player, area) {
+    console.log("in the center")
+    if (gameOptions.taha1Count > 0) {
+      gameOptions.taha1Count--
+      this.energyMaskTaha1.x--    
+    }
+    if (gameOptions.taha2Count > 0) {
+      gameOptions.taha2Count--
+      this.energyMaskTaha2.x--    
+    }
+    if (gameOptions.taha3Count > 0) {
+      gameOptions.taha3Count--
+      this.energyMaskTaha3.x--    
+    }
+    if (gameOptions.taha4Count > 0) {
+      gameOptions.taha4Count--
+      this.energyMaskTaha4.x--    
+    }
+    
   }
     
   
@@ -438,7 +471,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: false // set to true to view zones
+      debug: true // set to true to view zones
     }
   },
   scene: [BootScene, WorldScene]
