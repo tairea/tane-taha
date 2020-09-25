@@ -43,7 +43,11 @@ var area4;
 var center;
 
 let gameOptions = {
-  initialTime: 60
+  initialTime: 60,
+  taha1Count: 0,
+  taha2Count: 0,
+  taha3Count: 0,
+  taha4Count: 0,
 };
 
 var WorldScene = new Phaser.Class({
@@ -386,23 +390,26 @@ var WorldScene = new Phaser.Class({
       // increase the mask
        this.gameTimer = this.time.addEvent({
             delay: 1000,
-            callback: function(){
-
- 
-                // dividing enery bar width by the number of seconds gives us the amount
-                // of pixels we need to move the energy bar each second
-                let stepWidth = this.energyMask.displayWidth / gameOptions.initialTime;
- 
-                // moving the mask
-                this.energyMask.x -= stepWidth;
-                if(this.timeLeft == 0){
-                    this.scene.start("PlayGame")
-                }
+            callback: () => {
+              gameOptions.taha1Count++;
+              if (gameOptions.taha1Count !== 125) {
+                console.log("taha1: ",gameOptions.taha1Count)
+                this.energyMaskTaha1.x++;  
+              } else {
+                gameOptions.taha1Count = 0;
+                this.gameTimer.remove()
+              }  
             },
             callbackScope: this,
             loop: true
         });
-      this.energyMaskTaha1.x += stepWidth;
+    }
+    else {
+      
+      if (this.gameTimer) {
+        console.log("stopping timer")
+        this.gameTimer.remove()
+      }
     }
     if (
       this.player.x > area2.x &&
