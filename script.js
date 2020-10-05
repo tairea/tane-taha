@@ -321,6 +321,21 @@ var WorldScene = new Phaser.Class({
       this.player.anims.stop();
     }
     
+    
+    // Enemy movement
+    this.physics.moveToObject(this.frisk, this.player, 80);
+    
+    console.log(this.frisk.body.velocity)
+    
+    if (this.frisk.body.velocity.y > 1 && this.frisk.body.velocity.y >  Math.abs(this.frisk.body.velocity.x )) {
+      this.frisk.anims.play("friskDown",true)
+    } else if (this.frisk.body.velocity.y < -1 && Math.abs(this.frisk.body.velocity.y) >  Math.abs(this.frisk.body.velocity.x ) ) {
+      this.frisk.anims.play("friskUp",true)
+    } else if (this.frisk.body.velocity.x < -1) {
+      this.frisk.anims.play("friskLeft", true)
+    } else if (this.frisk.body.velocity.x > 1) {
+      this.frisk.anims.play("friskRight", true)
+    }  
   },
 
   onMeetEnemy: function(player, zone) {
