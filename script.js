@@ -203,7 +203,7 @@ var WorldScene = new Phaser.Class({
     });
     this.anims.create({
       key: "friskLeft",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 9] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 8] }),
       frameRate: 10,
       repeat: -1
     });
@@ -247,8 +247,8 @@ var WorldScene = new Phaser.Class({
     // chara
     
     
-    // this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
-    // this.frisk.play("friskDown")
+    this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
+    this.frisk.play("friskLeft")
     
     
 
@@ -281,26 +281,7 @@ var WorldScene = new Phaser.Class({
     //
     
     // Follower stuff
-    // Followers are a type of Phaser.Sprite
-    Follower.prototype = Object.create(Phaser.Sprite.prototype);
-    Follower.prototype.constructor = Follower;
-
-    Follower.prototype.update = function() {
-        // Calculate distance to target
-        var distance = this.game.math.distance(this.x, this.y, this.target.x, this.target.y);
-
-        // If the distance > MIN_DISTANCE then move
-        if (distance > this.MIN_DISTANCE) {
-            // Calculate the angle to the target
-            var rotation = this.game.math.angleBetween(this.x, this.y, this.target.x, this.target.y);
-
-            // Calculate velocity vector based on rotation and this.MAX_SPEED
-            this.body.velocity.x = Math.cos(rotation) * this.MAX_SPEED;
-            this.body.velocity.y = Math.sin(rotation) * this.MAX_SPEED;
-        } else {
-            this.body.velocity.setTo(0, 0);
-        }
-    };
+   
   },
 
   update: function(time, delta) {
@@ -414,27 +395,6 @@ var WorldScene = new Phaser.Class({
     
   },
   
-  // Follower constructor
-  Follower: function(game, x, y, target) {
-    
-    this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
-    Phaser.Sprite.call(this, game, x, y, 'player');
-
-    // Save the target that this Follower will follow
-    // The target is any object with x and y properties
-    this.target = target;
-
-    // Set the pivot point for this sprite to the center
-    this.anchor.setTo(0.5, 0.5);
-
-    // Enable physics on this object
-    this.game.physics.enable(this, Phaser.Physics.ARCADE);
-
-    // Define constants that affect motion
-    this.MAX_SPEED = 250; // pixels/second
-    this.MIN_DISTANCE = 32; // pixels
-}
-
 
     
   
