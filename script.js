@@ -114,7 +114,7 @@ var WorldScene = new Phaser.Class({
     
      
     // our player sprite created through the phycis system
-    this.player = this.physics.add.sprite(50, 100, "player", 6);
+    this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, "player", 6);
     this.player.setDepth(250)
     
     this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
@@ -203,7 +203,7 @@ var WorldScene = new Phaser.Class({
     });
     this.anims.create({
       key: "friskLeft",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [6, 7, 8] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [6, 7] }),
       frameRate: 10,
       repeat: -1
     });
@@ -215,32 +215,32 @@ var WorldScene = new Phaser.Class({
     });
      this.anims.create({
       key: "friskRight",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [12, 13, 14] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [12, 13] }),
       frameRate: 10,
       repeat: -1
     });
     // sans
     this.anims.create({
       key: "sansDown",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [3, 5] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [3, 4, 5] }),
       frameRate: 10,
       repeat: -1
     });
     this.anims.create({
       key: "sansLeft",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [10, 12] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [9, 10] }),
       frameRate: 10,
       repeat: -1
     });
     this.anims.create({
       key: "sansUp",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [24, 26] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [21, 22, 23] }),
       frameRate: 10,
       repeat: -1
     });
      this.anims.create({
       key: "sansRight",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [17, 19] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [15, 16] }),
       frameRate: 10,
       repeat: -1
     });
@@ -249,6 +249,10 @@ var WorldScene = new Phaser.Class({
     
     this.frisk = this.physics.add.sprite(-50, game.config.height/2, "enemies", 1);
     this.frisk.play("friskRight")
+    
+    this.sans = this.physics.add.sprite( game.config.width/2, -50, "enemies", 3);
+    this.sans.play("sansUp")
+    
     
     
     
@@ -285,6 +289,11 @@ var WorldScene = new Phaser.Class({
    
   },
 
+  
+  /* =============================================
+                    UPDATE
+   ============================================= */
+  
   update: function(time, delta) {
     
     
@@ -322,8 +331,10 @@ var WorldScene = new Phaser.Class({
     }
     
     
-    // Enemy movement
-   this.physics.moveToObject(this.frisk, this.player, 80);
+    // ================== Enemy movement
+    
+    this.physics.moveToObject(this.frisk, this.player, 80);
+    this.physics.moveToObject(this.sans, this.player, 80);
     
     //console.log(this.frisk.body.velocity)
     
@@ -335,7 +346,17 @@ var WorldScene = new Phaser.Class({
       this.frisk.anims.play("friskLeft", true)
     } else if (this.frisk.body.velocity.x > 1 && Math.abs(this.frisk.body.velocity.x) > Math.abs(this.frisk.body.velocity.y)) {
       this.frisk.anims.play("friskRight", true)
-    }  
+    }
+    
+    if (this.sans.body.velocity.y > 1 && this.sans.body.velocity.y >  Math.abs(this.sans.body.velocity.x )) {
+      this.sans.anims.play("sansDown",true)
+    } else if (this.sans.body.velocity.y < -1 && Math.abs(this.sans.body.velocity.y) >  Math.abs(this.sans.body.velocity.x ) ) {
+      this.sans.anims.play("sansUp",true)
+    } else if (this.sans.body.velocity.x < -1 && Math.abs(this.sans.body.velocity.x) > Math.abs(this.sans.body.velocity.y)) {
+      this.sans.anims.play("sansLeft", true)
+    } else if (this.sans.body.velocity.x > 1 && Math.abs(this.sans.body.velocity.x) > Math.abs(this.sans.body.velocity.y)) {
+      this.sans.anims.play("sansRight", true)
+    }
   },
 
   onMeetEnemy: function(player, zone) {
