@@ -251,6 +251,7 @@ var WorldScene = new Phaser.Class({
     this.frisk.play("friskLeft")
     
     
+    
 
     // don't go out of the map
     this.physics.world.bounds.width = map.widthInPixels;
@@ -285,6 +286,7 @@ var WorldScene = new Phaser.Class({
   },
 
   update: function(time, delta) {
+    
     
     //    this.controls.update(delta);
 
