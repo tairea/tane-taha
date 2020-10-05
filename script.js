@@ -197,25 +197,25 @@ var WorldScene = new Phaser.Class({
     // frisk
     this.anims.create({
       key: "friskDown",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 2] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 1, 2] }),
       frameRate: 10,
       repeat: -1
     });
     this.anims.create({
       key: "friskLeft",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [7, 8] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [6, 7, 8] }),
       frameRate: 10,
       repeat: -1
     });
     this.anims.create({
       key: "friskUp",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [21, 33] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [18, 19, 20] }),
       frameRate: 10,
       repeat: -1
     });
      this.anims.create({
       key: "friskRight",
-      frames: this.anims.generateFrameNumbers("enemies", { frames: [14, 16] }),
+      frames: this.anims.generateFrameNumbers("enemies", { frames: [12, 13, 14] }),
       frameRate: 10,
       repeat: -1
     });
@@ -247,8 +247,8 @@ var WorldScene = new Phaser.Class({
     // chara
     
     
-    this.frisk = this.physics.add.sprite(200, 100, "enemies", 1);
-    this.frisk.play("friskLeft")
+    this.frisk = this.physics.add.sprite(-50, game.config.height/2, "enemies", 1);
+    this.frisk.play("friskRight")
     
     
     
@@ -323,17 +323,17 @@ var WorldScene = new Phaser.Class({
     
     
     // Enemy movement
-    this.physics.moveToObject(this.frisk, this.player, 80);
+   this.physics.moveToObject(this.frisk, this.player, 80);
     
-    console.log(this.frisk.body.velocity)
+    //console.log(this.frisk.body.velocity)
     
     if (this.frisk.body.velocity.y > 1 && this.frisk.body.velocity.y >  Math.abs(this.frisk.body.velocity.x )) {
       this.frisk.anims.play("friskDown",true)
     } else if (this.frisk.body.velocity.y < -1 && Math.abs(this.frisk.body.velocity.y) >  Math.abs(this.frisk.body.velocity.x ) ) {
       this.frisk.anims.play("friskUp",true)
-    } else if (this.frisk.body.velocity.x < -1) {
+    } else if (this.frisk.body.velocity.x < -1 && Math.abs(this.frisk.body.velocity.x) > Math.abs(this.frisk.body.velocity.y)) {
       this.frisk.anims.play("friskLeft", true)
-    } else if (this.frisk.body.velocity.x > 1) {
+    } else if (this.frisk.body.velocity.x > 1 && Math.abs(this.frisk.body.velocity.x) > Math.abs(this.frisk.body.velocity.y)) {
       this.frisk.anims.play("friskRight", true)
     }  
   },
