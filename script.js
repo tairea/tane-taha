@@ -31,7 +31,8 @@ var BootScene = new Phaser.Class({
     );
     
     // ariki creative's Tane sprite
-    this.load.spritesheet("tane", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2F128-Run-Sprite.png?v=1602580715217", {
+    // this.load.spritesheet("tane", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2F128-Run-Sprite.png?v=1602580715217", {
+    this.load.spritesheet("tane", "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2FRun-Strips.png?v=1604390804895", {
       frameWidth: 128,
       frameHeight: 128,
     });
