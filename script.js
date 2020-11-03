@@ -247,25 +247,25 @@ var WorldScene = new Phaser.Class({
     this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("player", { frames: [0, 4] }),
-      frameRate: 10,
+      frameRate: 12,
       repeat: -1,
     });
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("player", { frames: [3, 7] }),
-      frameRate: 10,
+      frameRate: 12,
       repeat: -1,
     });
     this.anims.create({
       key: "up",
       frames: this.anims.generateFrameNumbers("player", { frames: [2, 6] }),
-      frameRate: 10,
+      frameRate: 12,
       repeat: -1,
     });
     this.anims.create({
       key: "down",
       frames: this.anims.generateFrameNumbers("player", { frames: [1, 5] }),
-      frameRate: 10,
+      frameRate: 12,
       repeat: -1,
     });
     // Frisk
