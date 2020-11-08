@@ -37,6 +37,21 @@ var BootScene = new Phaser.Class({
       frameHeight: 128,
     });
     
+    this.load.scenePlugin(
+      "rexwebfontloaderplugin",
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexwebfontloaderplugin.min.js",
+      "rexWebFont",
+      "rexWebFont"
+    );
+    
+    this.load.rexWebFont({
+      google: {
+          families: ['Bangers']
+      },
+      // testString: undefined,
+      // testInterval: 20,
+  });
+    
     
   },
 
@@ -76,7 +91,7 @@ var WorldScene = new Phaser.Class({
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
     );
     
-    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    
   },
 
   create: function () {
@@ -716,6 +731,14 @@ var config = {
       debug: false, // set to true to view zones
     },
   },
+  pack: {
+        files: [{
+            type: 'plugin',
+            key: 'rexwebfontloaderplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/    rexwebfontloaderplugin.min.js',
+            start: true
+        }]
+    },
   scene: [BootScene, WorldScene],
 };
 
