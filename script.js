@@ -36,6 +36,8 @@ var BootScene = new Phaser.Class({
       frameWidth: 128,
       frameHeight: 128,
     });
+    
+    
   },
 
   create: function() {
@@ -73,6 +75,8 @@ var WorldScene = new Phaser.Class({
       "energybar",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
     );
+    
+    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
   },
 
   create: function () {
@@ -156,6 +160,24 @@ var WorldScene = new Phaser.Class({
     //   null,
     //   this
     // );
+    
+    // ========== Countdown
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+        },
+        active: function ()
+        {
+            this.add.text(16, 0, 'The face of the\nmoon was in\nshadow.', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+            this.add.text(250, 450, 'Waves flung themselves\nat the blue evening.', { fontFamily: 'Finger Paint', fontSize: 40, color: '#5656ee' });
+
+            this.t = this.add.text(330, 200, 'R.I.P', { fontFamily: 'Nosifer', fontSize: 150, color: '#ff3434' });
+
+            this.input.once('pointerdown', function () {
+                this.t.setFontSize(64);
+            });
+        }
+    });
 
     // ========== TAHA 1 BAR
     // the energy container. A simple sprite
