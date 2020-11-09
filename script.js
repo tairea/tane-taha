@@ -42,6 +42,13 @@ var BootScene = new Phaser.Class({
     this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
     this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
     this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
+    
+    this.load.image("blue-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_1.png");
+    this.load.image("blue-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_2.png");
+    this.load.image("blue-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_3.png");
+    this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
+    this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
+    this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
 
     // our two characters
     this.load.spritesheet(
@@ -215,23 +222,7 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.tane, this.area4, this.inTaha4, null, this);
     this.physics.add.overlap(this.tane, this.center, this.inCenter, null, this);
 
-    // tokens
-    this.tokens = this.physics.add.group({
-      classType: Phaser.GameObjects.Zone
-    });
-    for (var i = 0; i < 4; i++) {
-      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-      // parameters are x, y, width, height
-      this.tokens.create(x, y, 20, 20);
-    }
-    this.physics.add.overlap(
-      this.tane,
-      this.tokens,
-      this.gotToken,
-      false,
-      this
-    );
+   
 
     // ========== Countdown
 
@@ -499,8 +490,15 @@ var WorldScene = new Phaser.Class({
     //coins anims
     this.anims.create({
       key: "blueCoin",
-      frames: ["blue-coin-1","blue-coin-2","blue-coin-3","blue-coin-4","blue-coin-5","blue-coin-6"],
-      frameRate: 10,
+      frames: [
+        {key:"blue-coin-1",frame:0},
+        {key:"blue-coin-2",frame:0},
+        {key:"blue-coin-3",frame:0},
+        {key:"blue-coin-4",frame:0},
+        {key:"blue-coin-5",frame:0},
+        {key:"blue-coin-6",frame:0},
+        ],
+      frameRate: 12,
       repeat: -1
     });
 
@@ -549,6 +547,40 @@ var WorldScene = new Phaser.Class({
 
     // user input
     this.cursors = this.input.keyboard.createCursorKeys();
+    
+     // tokens
+    this.tokens = this.physics.add.group({
+      allowGravity: false,immovable: true
+    });
+    for (var i = 0; i < 4; i++) {
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      // parameters are x, y, width, height
+      
+      switch(i) {
+        case 0:
+          const token = this.tokens.create(x, y, "blue-coin-1");    
+          token.play("blueCoin",true)
+          break;
+        case 1:
+          const token = this.tokens.create(x, y, "gold-coin-1");    
+          token.play("goldCoin",true)
+          break;
+      }
+      
+      
+      
+      
+      token.setScale(0.5)
+      
+    }
+    this.physics.add.overlap(
+      this.tane,
+      this.tokens,
+      this.gotToken,
+      false,
+      this
+    );
   },
 
   /* =============================================
@@ -901,7 +933,6 @@ class gameIntro extends Phaser.Scene {
         }
       })
       .layout()      
-      // .drawBounds(this.add.graphics(), 0xff0000)
       .popUp(1000)
 
     // dialog TWO
@@ -937,9 +968,7 @@ class gameIntro extends Phaser.Scene {
           mode: "release"
         }
       })
-      .setDraggable("background") // Draggable-background
       .layout()
-      // .drawBounds(this.add.graphics(), 0xff0000)
       .popUp(1000)
      .setVisible(false)
     
@@ -976,9 +1005,7 @@ class gameIntro extends Phaser.Scene {
           mode: "release"
         }
       })
-      .setDraggable("background") // Draggable-background
       .layout()
-      // .drawBounds(this.add.graphics(), 0xff0000)
       .popUp(1000)
      .setVisible(false)
 
@@ -1074,7 +1101,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true // set to true to view zones
+      debug: false // set to true to view zones
     }
   },
   scene: [gameIntro, BootScene, WorldScene]
