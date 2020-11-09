@@ -166,6 +166,8 @@ var WorldScene = new Phaser.Class({
   },
 
   create: function() {
+    this.tokenInHandEquals = ""
+    this.tokenInHand = false
     
     // load google font
     WebFont.load({
@@ -612,6 +614,23 @@ var WorldScene = new Phaser.Class({
       "enemies",
       27
     );
+    
+    // create group for enemies
+    this.enemies = this.physics.add.group();
+    this.enemies.add(this.frisk)
+    this.enemies.add(this.sans)
+    this.enemies.add(this.chara)
+    this.enemies.add(this.temmie)
+    
+    
+    // collider for tane and enemies
+    this.physics.add.overlap(
+      this.tane,
+      this.enemies,
+      this.gotHitByEnemy,
+      false,
+      this
+    );
 
     // don't go out of the map
     this.physics.world.bounds.width = map.widthInPixels;
@@ -850,7 +869,7 @@ var WorldScene = new Phaser.Class({
   inTaha1: function(player, area) {
     console.log("in taha blue");
     
-    if (gameOptions.taha1Count <= 100 & this.tokenInHandEquals == "blue") {
+    if (gameOptions.taha1Count < 100 & this.tokenInHandEquals == "blue") {
       // TODO: increase time and taha based on how many seconds have passed.
       gameOptions.taha1Count += 10;
       this.energyMaskTaha1.x += 10;
@@ -870,7 +889,7 @@ var WorldScene = new Phaser.Class({
 
   inTaha2: function(player, area) {
     console.log("in taha silver");
-    if (gameOptions.taha2Count <= 100 & this.tokenInHandEquals == "silver") {
+    if (gameOptions.taha2Count < 100 & this.tokenInHandEquals == "silver") {
       // TODO: increase time and taha based on how many seconds have passed.
       gameOptions.taha2Count += 10;
       this.energyMaskTaha2.x += 10;
@@ -890,7 +909,7 @@ var WorldScene = new Phaser.Class({
 
   inTaha3: function(player, area) {
     console.log("in taha bronze");
-    if (gameOptions.taha3Count <= 100 & this.tokenInHandEquals == "bronze") {
+    if (gameOptions.taha3Count < 100 & this.tokenInHandEquals == "bronze") {
       // TODO: increase time and taha based on how many seconds have passed.
       gameOptions.taha3Count += 10;
       this.energyMaskTaha3.x += 10;
@@ -910,7 +929,7 @@ var WorldScene = new Phaser.Class({
 
   inTaha4: function(player, area) {
     console.log("in taha gold");
-   if (gameOptions.taha4Count <= 100 & this.tokenInHandEquals == "gold") {
+   if (gameOptions.taha4Count < 100 & this.tokenInHandEquals == "gold") {
       // TODO: increase time and taha based on how many seconds have passed.
       gameOptions.taha4Count += 10;
       this.energyMaskTaha4.x += 10;
@@ -1021,6 +1040,9 @@ var WorldScene = new Phaser.Class({
           this.bronzeTokenHud.setVisible(false)
       }
     }
+  },
+  gotHitByEnemy: function(player,enemy) {
+    this.scene.start("game-over")
   }
 });
 
@@ -1301,6 +1323,37 @@ class gameIntro extends Phaser.Scene {
 }
 
 /* ==================================
+          GAME OVER SCENE
+  ================================== */
+
+class GameOver extends Phaser.Scene {
+  constructor() {
+    super("game-over");
+  }
+
+  create() {
+    const width = this.scale.width;
+    const height = this.scale.height;
+
+    this.add
+      .text(width * 0.5, height * 0.5, "You Died", {
+        fontSize: 48
+      })
+      .setOrigin(0.5);
+    
+    this.add
+      .text(width * 0.5, height * 0.6, "Press Space to Restart", {
+        fontSize: 20
+      })
+      .setOrigin(0.5);
+
+    this.input.keyboard.once("keydown_SPACE", () => {
+      this.scene.start("WorldScene");
+    });
+  }
+}
+
+/* ==================================
            PHASER GAME CONIG
   ================================== */
 var config = {
@@ -1317,8 +1370,8 @@ var config = {
       debug: false // set to true to view zones
     }
   },
-  // scene: [gameIntro, BootScene, WorldScene]
-  scene: [BootScene, WorldScene]
+  scene: [gameIntro, BootScene, WorldScene, GameOver]
+  // scene: [BootScene, WorldScene]
 };
 
 var game = new Phaser.Game(config);
