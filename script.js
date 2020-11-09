@@ -1,14 +1,4 @@
-var sceneConfig = {
-    key: 'examples',
-    pack: {
-        files: [{
-            type: 'plugin',
-            key: 'rexwebfontloaderplugin',
-            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexwebfontloaderplugin.min.js',
-            start: true
-        }]
-    }
-};
+
 
 var BootScene = new Phaser.Class({
   Extends: Phaser.Scene,
@@ -77,7 +67,7 @@ var WorldScene = new Phaser.Class({
     Phaser.Scene.call(this, { key: "WorldScene" });
   },
 
-  preload: function(sceneConfig) {
+  preload: function() {
     this.load.image(
       "energycontainer",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergycontainer.png?v=1600124415790"
@@ -87,16 +77,8 @@ var WorldScene = new Phaser.Class({
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
     );
     
-        // Webfont
-     this.plugins.get('rexwebfontloaderplugin').addToScene(this);
-
-        var config = {
-            google: {
-                families: ['Bangers']
-            }
-        };
-        this.load.rexWebFont(config);
-
+    //  Load the Google WebFont Loader script
+  this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     
     
   },
@@ -704,6 +686,29 @@ var WorldScene = new Phaser.Class({
       gameOptions.taha4Count = 0;
     }
   },
+  
+  createText: function () {
+     var style = {
+        font: "15px Revalia",
+        fill: "#fff",
+        boundsAlignH: "center",
+        boundsAlignV: "middle"
+      };
+
+      var style2 = {
+        font: "25px FerrumExtracondensed",
+        fill: "#fff",
+        boundsAlignH: "center",
+        boundsAlignV: "middle"
+      };
+
+      //  The Text is positioned at 0, 100
+      var text = game.add.text(50, 100, "Revalia Google Font", style);
+      text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+
+      var text2 = game.add.text(50, 200, "Ferrum Custom Font", style2);
+      text2.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+  }
 });
 
 /* ==================================
@@ -727,3 +732,29 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+WebFontConfig = {
+	
+  //  'active' means all requested fonts have finished loading
+  //  We set a 1 second delay before calling 'createText'.
+  //  For some reason if we don't the browser cannot render the text the first time it's created.
+  active: function() {
+ game.time.events.add(Phaser.Timer.SECOND, this.createText, this);
+  },
+
+  //  The Google Fonts we want to load (specify as many as you like in the array)
+  google: {
+    families: ['Revalia']
+  },
+  custom: {
+    families: ['FerrumExtracondensed'],
+    urls: ["https://fontlibrary.org/face/ferrum"]
+  }
+  //free font from fontlibrary
+  //https://fontlibrary.org/en/font/ferrum
+  //
+  //url can be a local url, link to your custom css generated from a font, from fontSquirrel for example!
+  //https://www.fontsquirrel.com/tools/webfont-generator
+  //just be sure that the font is LEGALLY ELEGIBLE for embedding! :)
+
+};
