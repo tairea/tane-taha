@@ -61,6 +61,8 @@ let gameOptions = {
   taha4Count: 0,
 };
 
+var countdownTime = 10
+
 var WorldScene = new Phaser.Class({
   Extends: Phaser.Scene,
   initialize: function WorldScene() {
@@ -84,11 +86,29 @@ var WorldScene = new Phaser.Class({
   },
 
   create: function () {
-     var add = this.add;
-    var input = this.input;
-    var countdownTime = 60
     
-    var timer = this.time.delayedCall(1000, this.loadTimer, this, this);  // delay in ms
+    
+    
+    
+        WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+        },
+        active:  () =>
+        {
+          //this.time.delayedCall(1000, this.loadTimer, null, this);  // delay in ms  
+          this.timer = this.add.text(game.config.width/2,20, countdownTime, { fontFamily: 'Freckle Face', fontSize: 50, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+          
+          this.time.addEvent({
+              delay: 1000,                // ms
+              callback: this.loadTimer,
+              //args: [],
+              callbackScope: this,
+              loop: true
+          });                  
+        }
+    
+    });
 
 
     // game size
@@ -694,21 +714,19 @@ var WorldScene = new Phaser.Class({
     }
   },
   
-  loadTimer: function(game) {
-        WebFont.load({
-        google: {
-            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
-        },
-        active: function ()
-        {
-            this.timer = add.text(game.config.width/2,20, countdownTime, { fontFamily: 'Freckle Face', fontSize: 50, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+  loadTimer: function() {
+     var add = this.add;
+    var input = this.input;
+    countdownTime -= 1
+    
+    
+    this.timer.setText(countdownTime);
           this.timer.setAlign('center')
           this.timer.setOrigin()
-          console.log(this.timer)
-            
-        }
-    });
+          console.log(this.timer.text)
     },
+  
+  
 });
 
 /* ==================================
