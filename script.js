@@ -121,8 +121,41 @@ var WorldScene = new Phaser.Class({
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergycontainer.png?v=1600124415790"
     );
     this.load.image(
+      "energycontainer-blue",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergycontainer-blue.png?v=1604907305559"
+    );
+    this.load.image(
+      "energycontainer-gold",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergycontainer-gold.png?v=1604907305277"
+    );
+    this.load.image(
+      "energycontainer-silver",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergycontainer-silver.png?v=1604907305263"
+    );
+    this.load.image(
+      "energycontainer-bronze",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergycontainer-bronze.png?v=1604907305012"
+    );
+    
+    this.load.image(
       "energybar",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
+    );
+     this.load.image(
+      "energybar-blue",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergybar-blue.png?v=1604907882480"
+    );
+     this.load.image(
+      "energybar-gold",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergybar-gold.png?v=1604907882803"
+    );
+     this.load.image(
+      "energybar-silver",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergybar-silver.png?v=1604907882531"
+    );
+     this.load.image(
+      "energybar-bronze",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fenergybar-bronze.png?v=1604907883034"
     );
 
     //  Load the Google WebFont Loader script
@@ -240,20 +273,20 @@ var WorldScene = new Phaser.Class({
     // ========== TAHA 1 BAR
     // the energy container. A simple sprite
     let energyContainerTaha1 = this.add
-      .sprite(160, 10, "energycontainer")
+      .sprite(160, 10, "energycontainer-blue")
       .setScale(0.2);
     // the energy bar. Another simple sprite
     this.energyBarTaha1 = this.add
       .sprite(
         energyContainerTaha1.x + 46 * 0.2,
         energyContainerTaha1.y,
-        "energybar"
+        "energybar-blue"
       )
       .setScale(0.205);
     // a copy of the energy bar to be used as a mask. Another simple sprite but...
     //energybar width is 500px (at 0.2 scale energybar width is 100px)
     this.energyMaskTaha1 = this.add
-      .sprite(this.energyBarTaha1.x - 100, this.energyBarTaha1.y, "energybar")
+      .sprite(this.energyBarTaha1.x - 100, this.energyBarTaha1.y, "energybar-blue")
       .setScale(0.205);
     this.energyMaskTaha1.visible = true;
     // and we assign it as energyBar's mask.
@@ -264,17 +297,17 @@ var WorldScene = new Phaser.Class({
 
     // ========== TAHA 2 BAR
     let energyContainerTaha2 = this.add
-      .sprite(490, 10, "energycontainer")
+      .sprite(490, 10, "energycontainer-silver")
       .setScale(0.2);
     this.energyBarTaha2 = this.add
       .sprite(
         energyContainerTaha2.x + 46 * 0.2,
         energyContainerTaha2.y,
-        "energybar"
+        "energybar-silver"
       )
       .setScale(0.205);
     this.energyMaskTaha2 = this.add
-      .sprite(this.energyBarTaha2.x - 100, this.energyBarTaha2.y, "energybar")
+      .sprite(this.energyBarTaha2.x - 100, this.energyBarTaha2.y, "energybar-silver")
       .setScale(0.205);
     this.energyMaskTaha2.visible = true;
     this.energyBarTaha2.mask = new Phaser.Display.Masks.BitmapMask(
@@ -284,17 +317,17 @@ var WorldScene = new Phaser.Class({
 
     // ========== TAHA 3 BAR
     let energyContainerTaha3 = this.add
-      .sprite(490, 310, "energycontainer")
+      .sprite(490, 310, "energycontainer-bronze")
       .setScale(0.2);
     this.energyBarTaha3 = this.add
       .sprite(
         energyContainerTaha3.x + 46 * 0.2,
         energyContainerTaha3.y,
-        "energybar"
+        "energybar-bronze"
       )
       .setScale(0.205);
     this.energyMaskTaha3 = this.add
-      .sprite(this.energyBarTaha3.x - 100, this.energyBarTaha3.y, "energybar")
+      .sprite(this.energyBarTaha3.x - 100, this.energyBarTaha3.y, "energybar-bronze")
       .setScale(0.205);
     this.energyMaskTaha3.visible = true;
     this.energyBarTaha3.mask = new Phaser.Display.Masks.BitmapMask(
@@ -304,17 +337,17 @@ var WorldScene = new Phaser.Class({
 
     // ========== TAHA 4 BAR
     let energyContainerTaha4 = this.add
-      .sprite(160, 310, "energycontainer")
+      .sprite(160, 310, "energycontainer-gold")
       .setScale(0.2);
     this.energyBarTaha4 = this.add
       .sprite(
         energyContainerTaha4.x + 46 * 0.2,
         energyContainerTaha4.y,
-        "energybar"
+        "energybar-gold"
       )
       .setScale(0.205);
     this.energyMaskTaha4 = this.add
-      .sprite(this.energyBarTaha4.x - 100, this.energyBarTaha4.y, "energybar")
+      .sprite(this.energyBarTaha4.x - 100, this.energyBarTaha4.y, "energybar-gold")
       .setScale(0.205);
     this.energyMaskTaha4.visible = true;
     this.energyBarTaha4.mask = new Phaser.Display.Masks.BitmapMask(
