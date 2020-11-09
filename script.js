@@ -34,6 +34,14 @@ var BootScene = new Phaser.Class({
       "taha4",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha4.png?v=1601024886010"
     );
+    
+    // coins
+    this.load.image("blue-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_1.png");
+    this.load.image("blue-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_2.png");
+    this.load.image("blue-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_3.png");
+    this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
+    this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
+    this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
 
     // our two characters
     this.load.spritesheet(
@@ -484,6 +492,14 @@ var WorldScene = new Phaser.Class({
       frames: this.anims.generateFrameNumbers("tane", {
         frames: [16, 17, 18, 19, 20, 21, 22, 23]
       }),
+      frameRate: 10,
+      repeat: -1
+    });
+    
+    //coins anims
+    this.anims.create({
+      key: "blueCoin",
+      frames: ["blue-coin-1","blue-coin-2","blue-coin-3","blue-coin-4","blue-coin-5","blue-coin-6"],
       frameRate: 10,
       repeat: -1
     });
