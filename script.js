@@ -13,7 +13,8 @@ var BootScene = new Phaser.Class({
     // map in json format
     this.load.tilemapTiledJSON(
       "map",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+      // "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Ftane-rpg-no-center.json?v=1604903866637"
     );
 
     //taha images
@@ -61,9 +62,8 @@ var BootScene = new Phaser.Class({
   },
 
   create: function() {
-    
     // start the WorldScene
-    //this.scene.start("WorldScene");
+    this.scene.start("WorldScene");
   }
 });
 
@@ -149,7 +149,7 @@ var WorldScene = new Phaser.Class({
     this.area2 = map.findObject("areas", obj => obj.name === "area2");
     this.area3 = map.findObject("areas", obj => obj.name === "area3");
     this.area4 = map.findObject("areas", obj => obj.name === "area4");
-    this.center = map.findObject("areas", obj => obj.name === "center");
+    // this.center = map.findObject("areas", obj => obj.name === "center");
 
     this.area1 = this.add
       .zone(this.area1.x, this.area1.y, this.area1.width, this.area1.height)
@@ -163,15 +163,15 @@ var WorldScene = new Phaser.Class({
     this.area4 = this.add
       .zone(this.area4.x, this.area4.y, this.area4.width, this.area4.height)
       .setOrigin(0, 0);
-    this.center = this.add
-      .zone(this.center.x, this.center.y, this.center.width, this.center.height)
-      .setOrigin(0, 0);
+    // this.center = this.add
+    //   .zone(this.center.x, this.center.y, this.center.width, this.center.height)
+    //   .setOrigin(0, 0);
 
     this.physics.world.enable(this.area1);
     this.physics.world.enable(this.area2);
     this.physics.world.enable(this.area3);
     this.physics.world.enable(this.area4);
-    this.physics.world.enable(this.center);
+    // this.physics.world.enable(this.center);
 
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
@@ -754,10 +754,7 @@ var WorldScene = new Phaser.Class({
       console.log("end");
     } else {
       countdownTime -= 1;
-
       this.timer.setText(countdownTime);
-
-      console.log(this.timer.text);
     }
   },
   gotToken: function(player, item) {
@@ -782,7 +779,9 @@ class gameIntro extends Phaser.Scene {
     // map in json format
     this.load.tilemapTiledJSON(
       "map",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Ftane-rpg-no-center.json?v=1604903866637"
+      // "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+      
     );
 
     //taha images
@@ -836,15 +835,15 @@ class gameIntro extends Phaser.Scene {
     this.area4 = this.add
       .zone(this.area4.x, this.area4.y, this.area4.width, this.area4.height)
       .setOrigin(0, 0);
-    this.center = this.add
-      .zone(this.center.x, this.center.y, this.center.width, this.center.height)
-      .setOrigin(0, 0);
+    // this.center = this.add
+    //   .zone(this.center.x, this.center.y, this.center.width, this.center.height)
+    //   .setOrigin(0, 0);
 
     this.physics.world.enable(this.area1);
     this.physics.world.enable(this.area2);
     this.physics.world.enable(this.area3);
     this.physics.world.enable(this.area4);
-    this.physics.world.enable(this.center);
+    // this.physics.world.enable(this.center);
 
     // make all tiles in obstacles collidable
     const platforms = map.createStaticLayer("ground", tileset, 0, 0);
@@ -941,7 +940,7 @@ class gameIntro extends Phaser.Scene {
           20,
           20
         ),
-        actions: [this.createLabel(this, "NEXT", 10, 10)],
+        actions: [this.createLabel(this, "BEGIN", 10, 10)],
         space: {
           left: 20,
           right: 20,
@@ -968,7 +967,7 @@ class gameIntro extends Phaser.Scene {
      .setVisible(false)
 
     var tween = this.tweens.add({
-      targets: [this.dialog1, this.dialog2],
+      targets: [this.dialog1, this.dialog2, this.dialog3],
       scaleX: 1,
       scaleY: 1,
       ease: "Bounce", // 'Cubic', 'Elastic', 'Bounce', 'Back'
@@ -1006,7 +1005,7 @@ class gameIntro extends Phaser.Scene {
       function(button) {
         if (button.text === "BEGIN") {
           console.log("starting game");
-          this.scene.start("PlayGame");
+          this.scene.start("BootScene");
         }
       },
       this
