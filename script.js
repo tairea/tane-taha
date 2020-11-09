@@ -849,46 +849,82 @@ var WorldScene = new Phaser.Class({
 
   inTaha1: function(player, area) {
     console.log("in taha blue");
-    gameOptions.taha1Count++;
+    
     if (gameOptions.taha1Count <= 100 & this.tokenInHandEquals == "blue") {
       // TODO: increase time and taha based on how many seconds have passed.
+      gameOptions.taha1Count += 10;
       this.energyMaskTaha1.x += 10;
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.blueTokenHud.setVisible(false)
+      
+      // add new coin
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      this.blueToken = this.tokens.create(x, y, "blue-coin-1");    
+      this.blueToken.setScale(0.5)
+      this.blueToken.play("blueCoin",true)
+      this.blueToken.name = "blue"
     }
   },
 
   inTaha2: function(player, area) {
     console.log("in taha silver");
-    
-    if (gameOptions.taha2Count <= 100 & this.tokenInHandEquals == "blue") {
+    if (gameOptions.taha2Count <= 100 & this.tokenInHandEquals == "silver") {
       // TODO: increase time and taha based on how many seconds have passed.
+      gameOptions.taha2Count += 10;
       this.energyMaskTaha2.x += 10;
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.silverTokenHud.setVisible(false)
+      
+      // add new coin
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      this.silverToken = this.tokens.create(x, y, "silver-coin-1");    
+      this.silverToken.setScale(0.5)
+      this.silverToken.play("silverCoin",true)
+      this.silverToken.name = "silver"
     }
   },
 
   inTaha3: function(player, area) {
     console.log("in taha bronze");
-    
-    if (gameOptions.taha3Count <= 100 & this.tokenInHandEquals == "blue") {
+    if (gameOptions.taha3Count <= 100 & this.tokenInHandEquals == "bronze") {
       // TODO: increase time and taha based on how many seconds have passed.
       gameOptions.taha3Count += 10;
       this.energyMaskTaha3.x += 10;
       this.tokenInHandEquals = ""
       this.tokenInHand = false
-      this.blueTokenHud.setVisible(false)
+      this.bronzeTokenHud.setVisible(false)
+      
+      // add new coin
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      this.bronzeToken = this.tokens.create(x, y, "bronze-coin-1");    
+      this.bronzeToken.setScale(0.5)
+      this.bronzeToken.play("bronzeCoin",true)
+      this.bronzeToken.name = "bronze"
     }
   },
 
   inTaha4: function(player, area) {
-    console.log("in taha 4");
-    gameOptions.taha4Count++;
-    if (gameOptions.taha4Count <= 100) {
-      this.energyMaskTaha4.x++;
+    console.log("in taha gold");
+   if (gameOptions.taha4Count <= 100 & this.tokenInHandEquals == "gold") {
+      // TODO: increase time and taha based on how many seconds have passed.
+      gameOptions.taha4Count += 10;
+      this.energyMaskTaha4.x += 10;
+      this.tokenInHandEquals = ""
+      this.tokenInHand = false
+      this.goldTokenHud.setVisible(false)
+     
+     // add new coin
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      this.goldToken = this.tokens.create(x, y, "gold-coin-1");    
+      this.goldToken.setScale(0.5)
+      this.goldToken.play("goldCoin",true)
+      this.goldToken.name = "gold"
     }
   },
 
