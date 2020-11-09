@@ -1,3 +1,15 @@
+var sceneConfig = {
+    key: 'examples',
+    pack: {
+        files: [{
+            type: 'plugin',
+            key: 'rexwebfontloaderplugin',
+            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexwebfontloaderplugin.min.js',
+            start: true
+        }]
+    }
+};
+
 var BootScene = new Phaser.Class({
   Extends: Phaser.Scene,
   initialize: function BootScene() {
@@ -37,22 +49,6 @@ var BootScene = new Phaser.Class({
       frameHeight: 128,
     });
     
-    this.load.scenePlugin(
-      "rexwebfontloaderplugin",
-      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexwebfontloaderplugin.min.js",
-      "rexWebFont",
-      "rexWebFont"
-    );
-    
-    this.load.rexWebFont({
-      google: {
-          families: ['Bangers']
-      },
-      // testString: undefined,
-      // testInterval: 20,
-  });
-    
-    
   },
 
   create: function() {
@@ -81,7 +77,7 @@ var WorldScene = new Phaser.Class({
     Phaser.Scene.call(this, { key: "WorldScene" });
   },
 
-  preload: function() {
+  preload: function(sceneConfig) {
     this.load.image(
       "energycontainer",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergycontainer.png?v=1600124415790"
@@ -90,6 +86,17 @@ var WorldScene = new Phaser.Class({
       "energybar",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
     );
+    
+        // Webfont
+     this.plugins.get('rexwebfontloaderplugin').addToScene(this);
+
+        var config = {
+            google: {
+                families: ['Bangers']
+            }
+        };
+        this.load.rexWebFont(config);
+
     
     
   },
@@ -177,22 +184,7 @@ var WorldScene = new Phaser.Class({
     // );
     
     // ========== Countdown
-    WebFont.load({
-        google: {
-            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
-        },
-        active: function ()
-        {
-            this.add.text(16, 0, 'The face of the\nmoon was in\nshadow.', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
-            this.add.text(250, 450, 'Waves flung themselves\nat the blue evening.', { fontFamily: 'Finger Paint', fontSize: 40, color: '#5656ee' });
 
-            this.t = this.add.text(330, 200, 'R.I.P', { fontFamily: 'Nosifer', fontSize: 150, color: '#ff3434' });
-
-            this.input.once('pointerdown', function () {
-                this.t.setFontSize(64);
-            });
-        }
-    });
 
     // ========== TAHA 1 BAR
     // the energy container. A simple sprite
@@ -731,14 +723,6 @@ var config = {
       debug: false, // set to true to view zones
     },
   },
-  pack: {
-        files: [{
-            type: 'plugin',
-            key: 'rexwebfontloaderplugin',
-            url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/    rexwebfontloaderplugin.min.js',
-            start: true
-        }]
-    },
   scene: [BootScene, WorldScene],
 };
 
