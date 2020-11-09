@@ -1,5 +1,3 @@
-
-
 var BootScene = new Phaser.Class({
   Extends: Phaser.Scene,
   initialize: function BootScene() {
@@ -8,16 +6,34 @@ var BootScene = new Phaser.Class({
 
   preload: function() {
     // map tiles
-    this.load.image("tiles","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183");
+    this.load.image(
+      "tiles",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183"
+    );
     // map in json format
-    this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606" );
-    
+    this.load.tilemapTiledJSON(
+      "map",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+    );
+
     //taha images
-    this.load.image("taha1","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha1.png?v=1601024886010");
-    this.load.image("taha2","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha2.png?v=1601024886010");
-    this.load.image("taha3","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha3.png?v=1601024886010");
-    this.load.image("taha4","https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha4.png?v=1601024886010");
-    
+    this.load.image(
+      "taha1",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha1.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha2",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha2.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha3",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha3.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha4",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha4.png?v=1601024886010"
+    );
+
     // our two characters
     this.load.spritesheet(
       "player",
@@ -31,19 +47,61 @@ var BootScene = new Phaser.Class({
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FFour-monsters%20copy.png?v=1600733851161",
       { frameWidth: 32, frameHeight: 32 }
     );
-    
+
     // ariki creative's Tane sprite
     // this.load.spritesheet("tane", "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2F128-Run-Sprite.png?v=1602580715217", {
-    this.load.spritesheet("tane", "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2FRun-Strips.png?v=1604390804895", {
-      frameWidth: 128,
-      frameHeight: 128,
-    });
-    
+    this.load.spritesheet(
+      "tane",
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2FRun-Strips.png?v=1604390804895",
+      {
+        frameWidth: 128,
+        frameHeight: 128
+      }
+    );
   },
 
   create: function() {
+    
+    // create map.
+    // map
+    var map = this.make.tilemap({ key: "map" });
+    // first parameter is the name of the tilemap in Tiled
+    var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
+
+    // creating the areas
+    this.area1 = map.findObject("areas", obj => obj.name === "area1");
+    this.area2 = map.findObject("areas", obj => obj.name === "area2");
+    this.area3 = map.findObject("areas", obj => obj.name === "area3");
+    this.area4 = map.findObject("areas", obj => obj.name === "area4");
+    this.center = map.findObject("areas", obj => obj.name === "center");
+
+    this.area1 = this.add
+      .zone(this.area1.x, this.area1.y, this.area1.width, this.area1.height)
+      .setOrigin(0, 0);
+    this.area2 = this.add
+      .zone(this.area2.x, this.area2.y, this.area2.width, this.area2.height)
+      .setOrigin(0, 0);
+    this.area3 = this.add
+      .zone(this.area3.x, this.area3.y, this.area3.width, this.area3.height)
+      .setOrigin(0, 0);
+    this.area4 = this.add
+      .zone(this.area4.x, this.area4.y, this.area4.width, this.area4.height)
+      .setOrigin(0, 0);
+    this.center = this.add
+      .zone(this.center.x, this.center.y, this.center.width, this.center.height)
+      .setOrigin(0, 0);
+
+    this.physics.world.enable(this.area1);
+    this.physics.world.enable(this.area2);
+    this.physics.world.enable(this.area3);
+    this.physics.world.enable(this.area4);
+    this.physics.world.enable(this.center);
+
+    // make all tiles in obstacles collidable
+    const platforms = map.createStaticLayer("ground", tileset, 0, 0);
+    
     // start the WorldScene
-    this.scene.start("WorldScene");
+    //this.scene.start("WorldScene");
   }
 });
 
@@ -58,10 +116,10 @@ let gameOptions = {
   taha1Count: 0,
   taha2Count: 0,
   taha3Count: 0,
-  taha4Count: 0,
+  taha4Count: 0
 };
 
-var countdownTime = 10
+var countdownTime = 10;
 
 var WorldScene = new Phaser.Class({
   Extends: Phaser.Scene,
@@ -78,41 +136,41 @@ var WorldScene = new Phaser.Class({
       "energybar",
       "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Fenergybar.png?v=1600124420212"
     );
-    
+
     //  Load the Google WebFont Loader script
-  this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-    
-    
+    this.load.script(
+      "webfont",
+      "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"
+    );
   },
 
-  create: function () {
+  create: function() {
     
-   
-    
-    
-        WebFont.load({
-        google: {
-            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
-        },
-        active:  () =>
-        {
-          
-          //this.time.delayedCall(1000, this.loadTimer, null, this);  // delay in ms  
-          this.timer = this.add.text(game.config.width/2,20, countdownTime, { fontFamily: 'Freckle Face', fontSize: 50, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
-          this.timer.setAlign('center')
-          this.timer.setOrigin()
-          
-          this.time.addEvent({
-              delay: 1000,                // ms
-              callback: this.loadTimer,
-              //args: [],
-              callbackScope: this,
-              loop: true
-          });                  
-        }
-    
-    });
+    // load google font
+    WebFont.load({
+      google: {
+        families: ["Freckle Face", "Finger Paint", "Nosifer"]
+      },
+      active: () => {
+        this.timer = this.add
+          .text(game.config.width / 2, 20, countdownTime, {
+            fontFamily: "Freckle Face",
+            fontSize: 50,
+            color: "#ffffff"
+          })
+          .setShadow(2, 2, "#333333", 2, false, true);
+        this.timer.setAlign("center");
+        this.timer.setOrigin();
 
+        this.time.addEvent({
+          delay: 1000, // ms
+          callback: this.loadTimer,
+          //args: [],
+          callbackScope: this,
+          loop: true
+        });
+      }
+    });
 
     // game size
     console.log("game.config.width", game.config.width);
@@ -125,11 +183,11 @@ var WorldScene = new Phaser.Class({
     var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
 
     // creating the areas
-    this.area1 = map.findObject("areas", (obj) => obj.name === "area1");
-    this.area2 = map.findObject("areas", (obj) => obj.name === "area2");
-    this.area3 = map.findObject("areas", (obj) => obj.name === "area3");
-    this.area4 = map.findObject("areas", (obj) => obj.name === "area4");
-    this.center = map.findObject("areas", (obj) => obj.name === "center");
+    this.area1 = map.findObject("areas", obj => obj.name === "area1");
+    this.area2 = map.findObject("areas", obj => obj.name === "area2");
+    this.area3 = map.findObject("areas", obj => obj.name === "area3");
+    this.area4 = map.findObject("areas", obj => obj.name === "area4");
+    this.center = map.findObject("areas", obj => obj.name === "center");
 
     this.area1 = this.add
       .zone(this.area1.x, this.area1.y, this.area1.width, this.area1.height)
@@ -176,7 +234,9 @@ var WorldScene = new Phaser.Class({
     this.tane.setScale(0.7);
     // this.tane.anims.play("taneLeft")
     this.tane.setDepth(250);
-    this.tane.body.setSize(this.tane.width/3, this.tane.height - 60).setOffset(this.tane.width/3, 30);
+    this.tane.body
+      .setSize(this.tane.width / 3, this.tane.height - 60)
+      .setOffset(this.tane.width / 3, 30);
 
     // player touching taha events
     this.physics.add.overlap(this.tane, this.area1, this.inTaha1, null, this);
@@ -184,19 +244,26 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.tane, this.area3, this.inTaha3, null, this);
     this.physics.add.overlap(this.tane, this.area4, this.inTaha4, null, this);
     this.physics.add.overlap(this.tane, this.center, this.inCenter, null, this);
-    
-    // tokens
-     this.tokens = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-        for(var i = 0; i < 4; i++) {
-            var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-            var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-            // parameters are x, y, width, height
-            this.tokens.create(x, y, 20, 20);            
-        }        
-        this.physics.add.overlap(this.tane, this.tokens, this.gotToken, false, this);
-    
-    // ========== Countdown
 
+    // tokens
+    this.tokens = this.physics.add.group({
+      classType: Phaser.GameObjects.Zone
+    });
+    for (var i = 0; i < 4; i++) {
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      // parameters are x, y, width, height
+      this.tokens.create(x, y, 20, 20);
+    }
+    this.physics.add.overlap(
+      this.tane,
+      this.tokens,
+      this.gotToken,
+      false,
+      this
+    );
+
+    // ========== Countdown
 
     // ========== TAHA 1 BAR
     // the energy container. A simple sprite
@@ -289,145 +356,145 @@ var WorldScene = new Phaser.Class({
       key: "left",
       frames: this.anims.generateFrameNumbers("player", { frames: [0, 4] }),
       frameRate: 12,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("player", { frames: [3, 7] }),
       frameRate: 12,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "up",
       frames: this.anims.generateFrameNumbers("player", { frames: [2, 6] }),
       frameRate: 12,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "down",
       frames: this.anims.generateFrameNumbers("player", { frames: [1, 5] }),
       frameRate: 12,
-      repeat: -1,
+      repeat: -1
     });
     // Frisk
     this.anims.create({
       key: "friskDown",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [0, 1, 2] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "friskLeft",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [6, 7] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "friskUp",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [18, 19, 20],
+        frames: [18, 19, 20]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "friskRight",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [12, 13] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     // Sans
     this.anims.create({
       key: "sansDown",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [3, 4, 5] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "sansLeft",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [9, 10] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "sansUp",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [21, 22, 23],
+        frames: [21, 22, 23]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "sansRight",
       frames: this.anims.generateFrameNumbers("enemies", { frames: [15, 16] }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     // Chara
     this.anims.create({
       key: "charaLeft",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [30, 31, 32],
+        frames: [30, 31, 32]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "charaRight",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [36, 37, 38],
+        frames: [36, 37, 38]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "charaUp",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [42, 43, 44],
+        frames: [42, 43, 44]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "charaDown",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [24, 25, 26],
+        frames: [24, 25, 26]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     // Temmie
     this.anims.create({
       key: "temmieLeft",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [33, 34, 35],
+        frames: [33, 34, 35]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "temmieRight",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [39, 40, 41],
+        frames: [39, 40, 41]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "temmieUp",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [45, 46, 47],
+        frames: [45, 46, 47]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "temmieDown",
       frames: this.anims.generateFrameNumbers("enemies", {
-        frames: [27, 28, 29],
+        frames: [27, 28, 29]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
 
     // TODO: add other enemies.
@@ -437,26 +504,26 @@ var WorldScene = new Phaser.Class({
     this.anims.create({
       key: "taneDown",
       frames: this.anims.generateFrameNumbers("tane", {
-        frames: [0, 1, 2, 3, 4, 5, 6, 7],
+        frames: [0, 1, 2, 3, 4, 5, 6, 7]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "taneUp",
       frames: this.anims.generateFrameNumbers("tane", {
-        frames: [8, 9, 10, 11, 12, 13, 14, 15],
+        frames: [8, 9, 10, 11, 12, 13, 14, 15]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
     this.anims.create({
       key: "taneLeft",
       frames: this.anims.generateFrameNumbers("tane", {
-        frames: [16, 17, 18, 19, 20, 21, 22, 23],
+        frames: [16, 17, 18, 19, 20, 21, 22, 23]
       }),
       frameRate: 10,
-      repeat: -1,
+      repeat: -1
     });
 
     // add Frisk
@@ -510,7 +577,7 @@ var WorldScene = new Phaser.Class({
                       UPDATE
      ============================================= */
 
-  update: function (time, delta) {
+  update: function(time, delta) {
     //    this.controls.update(delta);
 
     this.tane.body.setVelocity(0);
@@ -652,7 +719,7 @@ var WorldScene = new Phaser.Class({
     }
   }, //end of update
 
-  inTaha1: function (player, area) {
+  inTaha1: function(player, area) {
     console.log("in taha 1");
     gameOptions.taha1Count++;
     if (gameOptions.taha1Count <= 100) {
@@ -660,7 +727,7 @@ var WorldScene = new Phaser.Class({
     }
   },
 
-  inTaha2: function (player, area) {
+  inTaha2: function(player, area) {
     console.log("in taha 2");
     gameOptions.taha2Count++;
     if (gameOptions.taha2Count <= 100) {
@@ -668,7 +735,7 @@ var WorldScene = new Phaser.Class({
     }
   },
 
-  inTaha3: function (player, area) {
+  inTaha3: function(player, area) {
     console.log("in taha 3");
     gameOptions.taha3Count++;
     if (gameOptions.taha3Count <= 100) {
@@ -676,7 +743,7 @@ var WorldScene = new Phaser.Class({
     }
   },
 
-  inTaha4: function (player, area) {
+  inTaha4: function(player, area) {
     console.log("in taha 4");
     gameOptions.taha4Count++;
     if (gameOptions.taha4Count <= 100) {
@@ -684,9 +751,9 @@ var WorldScene = new Phaser.Class({
     }
   },
 
-  inCenter: function (player, area) {
+  inCenter: function(player, area) {
     // deplenish taha bars
-    
+
     if (gameOptions.taha1Count > 0) {
       gameOptions.taha1Count--;
       this.energyMaskTaha1.x--;
@@ -716,31 +783,236 @@ var WorldScene = new Phaser.Class({
       gameOptions.taha4Count = 0;
     }
   },
-  
-  loadTimer: function() {
-     var add = this.add;
-    var input = this.input;
-    
-    if (countdownTime === 0) {
-      console.log("end")
-    } else {
-       countdownTime -= 1
-    
-    
-    this.timer.setText(countdownTime);
-          
-          console.log(this.timer.text)
 
+  loadTimer: function() {
+    var add = this.add;
+    var input = this.input;
+
+    if (countdownTime === 0) {
+      console.log("end");
+    } else {
+      countdownTime -= 1;
+
+      this.timer.setText(countdownTime);
+
+      console.log(this.timer.text);
     }
-    
   },
   gotToken: function(player, item) {
-    console.log("got token")
-    item.destroy()
+    console.log("got token");
+    item.destroy();
   }
-  
-  
 });
+
+/* ==================================
+           Game Intro Scene
+  ================================== */
+class gameIntro extends Phaser.Scene {
+  constructor() {
+    super("GameIntro");
+  }
+  preload() {
+    // map tiles
+    this.load.image(
+      "tiles",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183"
+    );
+    // map in json format
+    this.load.tilemapTiledJSON(
+      "map",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
+    );
+
+    //taha images
+    this.load.image(
+      "taha1",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha1.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha2",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha2.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha3",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha3.png?v=1601024886010"
+    );
+    this.load.image(
+      "taha4",
+      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftaha4.png?v=1601024886010"
+    );
+
+    this.load.scenePlugin(
+      "rexuiplugin",
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js",
+      "rexUI",
+      "rexUI"
+    );
+  }
+  create() {
+    this.add.image(240, 320, "background").setScrollFactor(1, 0);
+
+    // creation of the physics group which will contain all platforms
+    this.platformGroup = this.physics.add.group();
+
+    // create starting platform
+    let platform = this.platformGroup.create(
+      game.config.width / 2,
+      game.config.height * gameOptions.firstPlatformPosition,
+      "platform"
+    );
+    platform.setScale(0.5);
+
+    // platform won't physically react to collisions
+    platform.setImmovable(true);
+
+    // we are going to create 10 more platforms which we'll reuse to save resources
+    for (let i = 0; i < 10; i++) {
+      // platform creation, as a member of platformGroup physics group
+      let platform = this.platformGroup.create(0, 0, "platform");
+      platform.setScale(0.5);
+
+      // platform won't physically react to collisions
+      platform.setImmovable(true);
+
+      // position the platform
+      this.positionPlatform(platform);
+    }
+
+    // dialog ONE
+    this.dialog1 = this.rexUI.add
+      .dialog({
+        x: 400,
+        y: game.config.height / 2,
+        width: 500,
+        background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
+        content: this.createLabel(
+          this,
+          "Help Tāne descend the heavens \nbefore Whiro catches him!!",
+          50,
+          50
+        ),
+        actions: [this.createLabel(this, "NEXT", 10, 10)],
+        space: {
+          left: 20,
+          right: 20,
+          top: 50,
+          bottom: 20,
+          content: 20,
+          toolbarItem: 5,
+          choice: 15,
+          action: 15
+        },
+        align: {
+          center: "center",
+          actions: "right" // 'center'|'left'|'right'
+        },
+
+        click: {
+          mode: "release"
+        }
+      })
+      .setDraggable("background") // Draggable-background
+      .layout()
+      // .drawBounds(this.add.graphics(), 0xff0000)
+      .popUp(1000);
+
+    // dialog TWO
+    this.dialog2 = this.rexUI.add
+      .dialog({
+        x: 400,
+        y: game.config.height / 2,
+        width: 500,
+        background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
+        content: this.add.image(0, 0, "touchSides"),
+        actions: [this.createLabel(this, "BEGIN", 10, 10)],
+        space: {
+          left: 20,
+          right: 20,
+          top: 50,
+          bottom: 20,
+          content: 20,
+          toolbarItem: 5,
+          choice: 15,
+          action: 15
+        },
+        align: {
+          content: "center",
+          actions: "right" // 'center'|'left'|'right'
+        },
+
+        click: {
+          mode: "release"
+        }
+      })
+      .setDraggable("background") // Draggable-background
+      .layout()
+      // .drawBounds(this.add.graphics(), 0xff0000)
+      .setVisible(false);
+
+    var tween = this.tweens.add({
+      targets: [this.dialog1, this.dialog2],
+      scaleX: 1,
+      scaleY: 1,
+      ease: "Bounce", // 'Cubic', 'Elastic', 'Bounce', 'Back'
+      duration: 1000,
+      repeat: 0, // -1: infinity
+      yoyo: false
+    });
+
+    this.dialog1.on(
+      "button.click",
+      function(button) {
+        if (button.text === "NEXT") {
+          this.dialog1.setVisible(false);
+          this.dialog2.setVisible(true).popUp(1000);
+        }
+      },
+      this
+    );
+
+    this.dialog2.on(
+      "button.click",
+      function(button) {
+        if (button.text === "BEGIN") {
+          console.log("starting game");
+          this.scene.start("PlayGame");
+        }
+      },
+      this
+    );
+  }
+
+  createLabel(scene, text, spaceTop, spaceBottom) {
+    return scene.rexUI.add.label({
+      width: 40, // Minimum width of round-rectangle
+      height: 40, // Minimum height of round-rectangle
+
+      background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0xffffff),
+
+      text: scene.add.text(0, 0, text, {
+        fontSize: "24px",
+        color: "#533d8e",
+        stroke: "#533d8e",
+        strokeThickness: 2
+      }),
+
+      space: {
+        left: 10,
+        right: 10,
+        top: spaceTop,
+        bottom: spaceBottom
+      }
+    });
+  }
+
+  // method to return a random value between index 0 and 1 of a giver array
+  randomValue(a) {
+    return Phaser.Math.Between(a[0], a[1]);
+  }
+
+  // method to be executed at each frame
+  update() {}
+}
 
 /* ==================================
            PHASER GAME CONIG
@@ -756,10 +1028,10 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true, // set to true to view zones
-    },
+      debug: true // set to true to view zones
+    }
   },
-  scene: [BootScene, WorldScene],
+  scene: [BootScene, WorldScene]
 };
 
 var game = new Phaser.Game(config);
