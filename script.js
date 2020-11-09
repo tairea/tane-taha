@@ -176,6 +176,7 @@ var WorldScene = new Phaser.Class({
     this.tane.setScale(0.7);
     // this.tane.anims.play("taneLeft")
     this.tane.setDepth(250);
+    this.tane.body.setSize(this.tane.width/3, this.tane.height - 60).setOffset(this.tane.width/3, 30);
 
     // player touching taha events
     this.physics.add.overlap(this.tane, this.area1, this.inTaha1, null, this);
@@ -185,14 +186,14 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.tane, this.center, this.inCenter, null, this);
     
     // tokens
-     this.spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
-        for(var i = 0; i < 30; i++) {
+     this.tokens = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+        for(var i = 0; i < 4; i++) {
             var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
             var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
             // parameters are x, y, width, height
-            this.spawns.create(x, y, 20, 20);            
+            this.tokens.create(x, y, 20, 20);            
         }        
-        this.physics.add.overlap(this.tane, this.spawns, this.gotToken, false, this);
+        this.physics.add.overlap(this.tane, this.tokens, this.gotToken, false, this);
     
     // ========== Countdown
 
@@ -733,7 +734,10 @@ var WorldScene = new Phaser.Class({
     }
     
   },
-  
+  gotToken: function(player, item) {
+    console.log("got token")
+    item.destroy()
+  }
   
   
 });
