@@ -644,21 +644,25 @@ var WorldScene = new Phaser.Class({
           this.blueToken = this.tokens.create(x, y, "blue-coin-1");    
           this.blueToken.setScale(0.5)
           this.blueToken.play("blueCoin",true)
+          this.blueToken.name = "blue"
           break;
         case 1:
           this.goldToken = this.tokens.create(x, y, "gold-coin-1");    
           this.goldToken.setScale(0.5)
           this.goldToken.play("goldCoin",true)
+          this.goldToken.name = "gold"
           break;
         case 2:
           this.bronzeToken = this.tokens.create(x, y, "bronze-coin-1");    
           this.bronzeToken.setScale(0.5)
           this.bronzeToken.play("bronzeCoin",true)
+          this.bronzeToken.name = "bronze"
           break;
         case 3:
           this.silverToken = this.tokens.create(x, y, "silver-coin-1");    
           this.silverToken.setScale(0.5)
           this.silverToken.play("silverCoin",true)
+          this.silverToken.name = "silver"
           break;
       }
 
@@ -672,17 +676,18 @@ var WorldScene = new Phaser.Class({
     );
     
     // ========== add coin above tanes head
-    this.blueTokenHud = this.add.image(100,100,"blue-coin-1")
-    this.goldTokenHud = this.add.image(0,0,"gold-coin-1")
-    this.silverTokenHud = this.add.image(0,0,"silver-coin-1")
-    this.bronzeTokenHud = this.add.image(0,0,"bronze-coin-1")
-    this.blueTokenHud.setScale(0.25)
+    this.blueTokenHud = this.add.image(this.tane.x,this.tane.y-40,"blue-coin-1").setScale(0.25).setVisible(false)
+    this.goldTokenHud = this.add.image(0,0,"gold-coin-1").setScale(0.25).setVisible(false)
+    this.silverTokenHud = this.add.image(0,0,"silver-coin-1").setScale(0.25).setVisible(false)
+    this.bronzeTokenHud = this.add.image(0,0,"bronze-coin-1").setScale(0.25).setVisible(false)
+
     
     const hudCoins = [this.blueTokenHud,this.goldTokenHud,this.silverTokenHud,this.bronzeTokenHud]
     
     this.playerContainer = this.add.container(0,0)
     
     this.playerContainer.add(this.tane)
+    this.playerContainer.add(this.blueTokenHud)
     
     
   },
@@ -693,6 +698,15 @@ var WorldScene = new Phaser.Class({
 
   update: function(time, delta) {
     //    this.controls.update(delta);
+    
+    this.blueTokenHud.x = this.tane.x
+    this.goldTokenHud.x = this.tane.x
+    this.silverTokenHud.x = this.tane.x
+    this.bronzeTokenHud.x = this.tane.x
+    this.blueTokenHud.y = this.tane.y - 40
+    this.goldTokenHud.y = this.tane.y - 40
+    this.silverTokenHud.y = this.tane.y - 40
+    this.bronzeTokenHud.y = this.tane.y - 40
 
     this.tane.body.setVelocity(0);
 
@@ -910,8 +924,30 @@ var WorldScene = new Phaser.Class({
     }
   },
   gotToken: function(player, item) {
-    console.log("got token");
-    item.destroy();
+    if (this.tokenInHand == true) {
+      return
+    } else {
+      console.log("got token",item.name);
+      item.destroy();
+
+      switch(item.name) {
+        case "blue":
+          this.tokenInHand = true
+          this.goldTokenHud.set.setVisible(true)
+          this.blueTokenHud.setVisible(true)
+          break;
+        case "gold":
+          this.tokenInHand = true
+          this.blueTokenHud.setVisible(true)
+          break;
+      }
+    }
+    
+    blueTokenHud
+goldTokenHud
+silverTokenHud
+bronzeTokenHud
+    
   }
 });
 
