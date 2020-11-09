@@ -87,7 +87,7 @@ var WorldScene = new Phaser.Class({
 
   create: function () {
     
-    
+   
     
     
         WebFont.load({
@@ -96,8 +96,11 @@ var WorldScene = new Phaser.Class({
         },
         active:  () =>
         {
+          
           //this.time.delayedCall(1000, this.loadTimer, null, this);  // delay in ms  
           this.timer = this.add.text(game.config.width/2,20, countdownTime, { fontFamily: 'Freckle Face', fontSize: 50, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+          this.timer.setAlign('center')
+          this.timer.setOrigin()
           
           this.time.addEvent({
               delay: 1000,                // ms
@@ -180,17 +183,16 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.tane, this.area3, this.inTaha3, null, this);
     this.physics.add.overlap(this.tane, this.area4, this.inTaha4, null, this);
     this.physics.add.overlap(this.tane, this.center, this.inCenter, null, this);
-    // this.physics.add.overlap(this.player, this.area1, this.inTaha1, null, this);
-    // this.physics.add.overlap(this.player, this.area2, this.inTaha2, null, this);
-    // this.physics.add.overlap(this.player, this.area3, this.inTaha3, null, this);
-    // this.physics.add.overlap(this.player, this.area4, this.inTaha4, null, this);
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.center,
-    //   this.inCenter,
-    //   null,
-    //   this
-    // );
+    
+    // tokens
+     this.spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+        for(var i = 0; i < 30; i++) {
+            var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+            var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+            // parameters are x, y, width, height
+            this.spawns.create(x, y, 20, 20);            
+        }        
+        this.physics.add.overlap(this.tane, this.spawns, this.gotToken, false, this);
     
     // ========== Countdown
 
@@ -683,7 +685,7 @@ var WorldScene = new Phaser.Class({
 
   inCenter: function (player, area) {
     // deplenish taha bars
-    console.log("in the center");
+    
     if (gameOptions.taha1Count > 0) {
       gameOptions.taha1Count--;
       this.energyMaskTaha1.x--;
@@ -717,14 +719,21 @@ var WorldScene = new Phaser.Class({
   loadTimer: function() {
      var add = this.add;
     var input = this.input;
-    countdownTime -= 1
+    
+    if (countdownTime === 0) {
+      console.log("end")
+    } else {
+       countdownTime -= 1
     
     
     this.timer.setText(countdownTime);
-          this.timer.setAlign('center')
-          this.timer.setOrigin()
+          
           console.log(this.timer.text)
-    },
+
+    }
+    
+  },
+  
   
   
 });
@@ -737,13 +746,13 @@ var config = {
   parent: "content",
   width: 640,
   height: 320,
-  zoom: 2,
+  zoom: 1,
   pixelArt: true,
   physics: {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: false, // set to true to view zones
+      debug: true, // set to true to view zones
     },
   },
   scene: [BootScene, WorldScene],
