@@ -848,26 +848,39 @@ var WorldScene = new Phaser.Class({
   }, //end of update
 
   inTaha1: function(player, area) {
-    console.log("in taha 1");
+    console.log("in taha blue");
     gameOptions.taha1Count++;
-    if (gameOptions.taha1Count <= 100) {
-      this.energyMaskTaha1.x++;
+    if (gameOptions.taha1Count <= 100 & this.tokenInHandEquals == "blue") {
+      // TODO: increase time and taha based on how many seconds have passed.
+      this.energyMaskTaha1.x += 10;
+      this.tokenInHandEquals = ""
+      this.tokenInHand = false
+      this.blueTokenHud.setVisible(false)
     }
   },
 
   inTaha2: function(player, area) {
-    console.log("in taha 2");
-    gameOptions.taha2Count++;
-    if (gameOptions.taha2Count <= 100) {
-      this.energyMaskTaha2.x++;
+    console.log("in taha silver");
+    
+    if (gameOptions.taha2Count <= 100 & this.tokenInHandEquals == "blue") {
+      // TODO: increase time and taha based on how many seconds have passed.
+      this.energyMaskTaha2.x += 10;
+      this.tokenInHandEquals = ""
+      this.tokenInHand = false
+      this.silverTokenHud.setVisible(false)
     }
   },
 
   inTaha3: function(player, area) {
-    console.log("in taha 3");
-    gameOptions.taha3Count++;
-    if (gameOptions.taha3Count <= 100) {
-      this.energyMaskTaha3.x++;
+    console.log("in taha bronze");
+    
+    if (gameOptions.taha3Count <= 100 & this.tokenInHandEquals == "blue") {
+      // TODO: increase time and taha based on how many seconds have passed.
+      gameOptions.taha3Count += 10;
+      this.energyMaskTaha3.x += 10;
+      this.tokenInHandEquals = ""
+      this.tokenInHand = false
+      this.blueTokenHud.setVisible(false)
     }
   },
 
@@ -933,21 +946,45 @@ var WorldScene = new Phaser.Class({
       switch(item.name) {
         case "blue":
           this.tokenInHand = true
-          this.goldTokenHud.set.setVisible(true)
+          this.tokenInHandEquals= "blue"
           this.blueTokenHud.setVisible(true)
+          this.goldTokenHud.setVisible(false)
+          this.silverTokenHud.setVisible(false)
+          this.bronzeTokenHud.setVisible(false)
           break;
         case "gold":
           this.tokenInHand = true
-          this.blueTokenHud.setVisible(true)
+          this.tokenInHandEquals= "gold"
+          this.blueTokenHud.setVisible(false)
+          this.goldTokenHud.setVisible(true)
+          this.silverTokenHud.setVisible(false)
+          this.bronzeTokenHud.setVisible(false)
           break;
+        case "silver":
+          this.tokenInHand = true
+          this.tokenInHandEquals= "silver"
+          this.blueTokenHud.setVisible(false)
+          this.goldTokenHud.setVisible(false)
+          this.silverTokenHud.setVisible(true)
+          this.bronzeTokenHud.setVisible(false)
+          break;
+        case "bronze":
+          this.tokenInHand = true
+          this.tokenInHandEquals= "bronze"
+          this.blueTokenHud.setVisible(false)
+          this.goldTokenHud.setVisible(false)
+          this.silverTokenHud.setVisible(false)
+          this.bronzeTokenHud.setVisible(true)
+          break;
+        default:
+          this.tokenInHand = false
+          this.tokenInHandEquals= ""
+          this.blueTokenHud.setVisible(false)
+          this.goldTokenHud.setVisible(false)
+          this.silverTokenHud.setVisible(false)
+          this.bronzeTokenHud.setVisible(false)
       }
     }
-    
-    blueTokenHud
-goldTokenHud
-silverTokenHud
-bronzeTokenHud
-    
   }
 });
 
