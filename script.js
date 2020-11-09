@@ -857,7 +857,7 @@ class gameIntro extends Phaser.Scene {
       .dialog({
         x: game.config.width / 2,
         y: game.config.height / 2,
-        width: 500,
+        width: 300,
         background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
         content: this.createLabel(
           this,
@@ -871,7 +871,46 @@ class gameIntro extends Phaser.Scene {
           right: 20,
           top: 50,
           bottom: 20,
-          content: 20,
+          content: 10,
+          toolbarItem: 5,
+          choice: 15,
+          action: 15
+        },
+        align: {
+          center: "center",
+          actions: "right" // 'center'|'left'|'right'
+        },
+
+        click: {
+          mode: "release"
+        }
+      })
+      .setDraggable("background") // Draggable-background
+      .layout()
+      .setScale(0.25)
+      // .drawBounds(this.add.graphics(), 0xff0000)
+      .popUp(1000);
+
+    // dialog TWO
+   this.dialog2 = this.rexUI.add
+      .dialog({
+        x: game.config.width / 2,
+        y: game.config.height / 2,
+        width: 500,
+        background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
+        content: this.createLabel(
+          this,
+          "Collect the actions that will help Tane\nreach his aspirational state of wellbeing\n and place them in the correct Wellbeing zone.",
+          50,
+          50
+        ),
+        actions: [this.createLabel(this, "NEXT", 10, 10)],
+        space: {
+          left: 20,
+          right: 20,
+          top: 50,
+          bottom: 20,
+          content: 10,
           toolbarItem: 5,
           choice: 15,
           action: 15
@@ -888,40 +927,8 @@ class gameIntro extends Phaser.Scene {
       .setDraggable("background") // Draggable-background
       .layout()
       // .drawBounds(this.add.graphics(), 0xff0000)
-      .popUp(1000);
-
-    // dialog TWO
-    this.dialog2 = this.rexUI.add
-      .dialog({
-        x: 400,
-        y: game.config.height / 2,
-        width: 500,
-        background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
-        content: this.add.image(0, 0, "touchSides"),
-        actions: [this.createLabel(this, "BEGIN", 10, 10)],
-        space: {
-          left: 20,
-          right: 20,
-          top: 50,
-          bottom: 20,
-          content: 20,
-          toolbarItem: 5,
-          choice: 15,
-          action: 15
-        },
-        align: {
-          content: "center",
-          actions: "right" // 'center'|'left'|'right'
-        },
-
-        click: {
-          mode: "release"
-        }
-      })
-      .setDraggable("background") // Draggable-background
-      .layout()
-      // .drawBounds(this.add.graphics(), 0xff0000)
-      .setVisible(false);
+      .popUp(1000)
+     .setVisible(false)
 
     var tween = this.tweens.add({
       targets: [this.dialog1, this.dialog2],
