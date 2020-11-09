@@ -857,21 +857,58 @@ class gameIntro extends Phaser.Scene {
       .dialog({
         x: game.config.width / 2,
         y: game.config.height / 2,
-        width: 300,
+        width: 100,
+        height: 100,
         background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
         content: this.createLabel(
           this,
           "Tane needs to strengthen his \n4 Taha to reach his aspirational \nstate of wellbeing.",
-          50,
-          50
+          20,
+          20
         ),
         actions: [this.createLabel(this, "NEXT", 10, 10)],
         space: {
           left: 20,
           right: 20,
-          top: 50,
+          top: 20,
           bottom: 20,
-          content: 10,
+          content: 20,
+          toolbarItem: 5,
+          choice: 15,
+          action: 15
+        },
+        align: {
+          center: "center",
+          actions: "right" // 'center'|'left'|'right'
+        },
+        click: {
+          mode: "release"
+        }
+      })
+      .layout()      
+      // .drawBounds(this.add.graphics(), 0xff0000)
+      .popUp(1000)
+
+    // dialog TWO
+   this.dialog2 = this.rexUI.add
+      .dialog({
+        x: game.config.width / 2,
+        y: game.config.height / 2,
+        width: 500,
+        background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
+        content: this.createLabel(
+          this,
+          "Collect the actions that will help Tane\nreach his aspirational state of wellbeing\nand place them in the correct Wellbeing zone.",
+          20,
+          20
+        ),
+        actions: [this.createLabel(this, "NEXT", 10, 10)],
+        space: {
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20,
+          content: 20,
           toolbarItem: 5,
           choice: 15,
           action: 15
@@ -887,12 +924,12 @@ class gameIntro extends Phaser.Scene {
       })
       .setDraggable("background") // Draggable-background
       .layout()
-      .setScale(0.25)
       // .drawBounds(this.add.graphics(), 0xff0000)
-      .popUp(1000);
-
-    // dialog TWO
-   this.dialog2 = this.rexUI.add
+      .popUp(1000)
+     .setVisible(false)
+    
+    // dialog THREE
+   this.dialog3 = this.rexUI.add
       .dialog({
         x: game.config.width / 2,
         y: game.config.height / 2,
@@ -900,17 +937,17 @@ class gameIntro extends Phaser.Scene {
         background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
         content: this.createLabel(
           this,
-          "Collect the actions that will help Tane\nreach his aspirational state of wellbeing\n and place them in the correct Wellbeing zone.",
-          50,
-          50
+          "Watch out there are those that\ndon’t want Tane to succeed and stop\nhim from building his strength.",
+          20,
+          20
         ),
         actions: [this.createLabel(this, "NEXT", 10, 10)],
         space: {
           left: 20,
           right: 20,
-          top: 50,
+          top: 20,
           bottom: 20,
-          content: 10,
+          content: 20,
           toolbarItem: 5,
           choice: 15,
           action: 15
@@ -945,13 +982,26 @@ class gameIntro extends Phaser.Scene {
       function(button) {
         if (button.text === "NEXT") {
           this.dialog1.setVisible(false);
-          this.dialog2.setVisible(true).popUp(1000);
+          this.dialog2.setVisible(true).popUp(1000)
+          tween.play();
         }
       },
       this
     );
 
     this.dialog2.on(
+      "button.click",
+      function(button) {
+        if (button.text === "NEXT") {
+          this.dialog2.setVisible(false);
+          this.dialog3.setVisible(true).popUp(1000)
+          tween.play();
+        }
+      },
+      this
+    );
+    
+    this.dialog3.on(
       "button.click",
       function(button) {
         if (button.text === "BEGIN") {
@@ -971,10 +1021,10 @@ class gameIntro extends Phaser.Scene {
       background: scene.rexUI.add.roundRectangle(0, 0, 100, 40, 20, 0xffffff),
 
       text: scene.add.text(0, 0, text, {
-        fontSize: "24px",
+        fontSize: "20px",
         color: "#533d8e",
         stroke: "#533d8e",
-        strokeThickness: 2
+        strokeThickness: 1
       }),
 
       space: {
