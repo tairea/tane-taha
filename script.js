@@ -42,13 +42,24 @@ var BootScene = new Phaser.Class({
     this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
     this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
     this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
-    
-    this.load.image("blue-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_1.png");
-    this.load.image("blue-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_2.png");
-    this.load.image("blue-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_3.png");
-    this.load.image("blue-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_4.png");
-    this.load.image("blue-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_5.png");
-    this.load.image("blue-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fblue_coin_round_diamond_6.png");
+    this.load.image("bronze-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_1.png");
+    this.load.image("bronze-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_2.png");
+    this.load.image("bronze-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_3.png");
+    this.load.image("bronze-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_4.png");
+    this.load.image("bronze-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_5.png");
+    this.load.image("bronze-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fbronze_coin_round_diamond_6.png");
+    this.load.image("gold-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_1.png");
+    this.load.image("gold-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_2.png");
+    this.load.image("gold-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_3.png");
+    this.load.image("gold-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_4.png");
+    this.load.image("gold-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_5.png");
+    this.load.image("gold-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fgold_coin_round_diamond_6.png");
+    this.load.image("silver-coin-1","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_1.png");
+    this.load.image("silver-coin-2","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_2.png");
+    this.load.image("silver-coin-3","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_3.png");
+    this.load.image("silver-coin-4","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_4.png");
+    this.load.image("silver-coin-5","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_5.png");
+    this.load.image("silver-coin-6","https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Fsilver_coin_round_diamond_6.png");
 
     // our two characters
     this.load.spritesheet(
@@ -501,6 +512,45 @@ var WorldScene = new Phaser.Class({
       frameRate: 12,
       repeat: -1
     });
+    this.anims.create({
+      key: "goldCoin",
+      frames: [
+        {key:"gold-coin-1",frame:0},
+        {key:"gold-coin-2",frame:0},
+        {key:"gold-coin-3",frame:0},
+        {key:"gold-coin-4",frame:0},
+        {key:"gold-coin-5",frame:0},
+        {key:"gold-coin-6",frame:0},
+        ],
+      frameRate: 12,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "silverCoin",
+      frames: [
+        {key:"silver-coin-1",frame:0},
+        {key:"silver-coin-2",frame:0},
+        {key:"silver-coin-3",frame:0},
+        {key:"silver-coin-4",frame:0},
+        {key:"silver-coin-5",frame:0},
+        {key:"silver-coin-6",frame:0},
+        ],
+      frameRate: 12,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "bronzeCoin",
+      frames: [
+        {key:"bronze-coin-1",frame:0},
+        {key:"bronze-coin-2",frame:0},
+        {key:"bronze-coin-3",frame:0},
+        {key:"bronze-coin-4",frame:0},
+        {key:"bronze-coin-5",frame:0},
+        {key:"bronze-coin-6",frame:0},
+        ],
+      frameRate: 12,
+      repeat: -1
+    });
 
     // add Frisk
     this.frisk = this.physics.add.sprite(
@@ -559,20 +609,27 @@ var WorldScene = new Phaser.Class({
       
       switch(i) {
         case 0:
-          const token = this.tokens.create(x, y, "blue-coin-1");    
-          token.play("blueCoin",true)
+          const blueToken = this.tokens.create(x, y, "blue-coin-1");    
+          blueToken.setScale(0.5)
+          blueToken.play("blueCoin",true)
           break;
         case 1:
-          const token = this.tokens.create(x, y, "gold-coin-1");    
-          token.play("goldCoin",true)
+          const goldToken = this.tokens.create(x, y, "gold-coin-1");    
+          goldToken.setScale(0.5)
+          goldToken.play("goldCoin",true)
+          break;
+        case 2:
+          const bronzeToken = this.tokens.create(x, y, "bronze-coin-1");    
+          bronzeToken.setScale(0.5)
+          bronzeToken.play("bronzeCoin",true)
+          break;
+        case 3:
+          const silverToken = this.tokens.create(x, y, "silver-coin-1");    
+          silverToken.setScale(0.5)
+          silverToken.play("silverCoin",true)
           break;
       }
-      
-      
-      
-      
-      token.setScale(0.5)
-      
+
     }
     this.physics.add.overlap(
       this.tane,
