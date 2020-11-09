@@ -86,19 +86,11 @@ var WorldScene = new Phaser.Class({
   create: function () {
      var add = this.add;
     var input = this.input;
+    var countdownTime = 60
+    
+    var timer = this.time.delayedCall(1000, this.loadTimer, this, this);  // delay in ms
 
-    WebFont.load({
-        google: {
-            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
-        },
-        active: function ()
-        {
-            this.timer = add.text(game.config.width/2,0, '00:00', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
-          // this.timer.setOrigin(this.timer.width/2,0)
-          console.log(this.timer)
-            
-        }
-    });
+
     // game size
     console.log("game.config.width", game.config.width);
     console.log("game.config.height", game.config.height);
@@ -702,26 +694,20 @@ var WorldScene = new Phaser.Class({
     }
   },
   
-  makeText: function() {
-        this.text1 = game.add.text(game.width / 2, 100, "Some Text Here");
-        this.text1.fill = "#ffffff";
-        this.text1.anchor.set(0.5, 0.5);
-        this.text1.font = "Fresca";
-        //
-        //
-        this.text2 = game.add.text(game.width / 2, 200, "On Fire!");
-        this.text2.fill = "#ff0000";
-        this.text2.stroke = "#ffff00";
-        this.text2.strokeThickness = 6;
-        this.text2.anchor.set(0.5, 0.5);
-        this.text2.font = "Flamenco";
-        //
-        //
-        //
-        this.text3 = game.add.text(game.width / 2, 300, "Some Text Here");
-        this.text3.fill = "#00ff00";
-        this.text3.anchor.set(0.5, 0.5);
-        this.text3.font = "Indie Flower";
+  loadTimer: function(game) {
+        WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+        },
+        active: function ()
+        {
+            this.timer = add.text(game.config.width/2,20, countdownTime, { fontFamily: 'Freckle Face', fontSize: 50, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+          this.timer.setAlign('center')
+          this.timer.setOrigin()
+          console.log(this.timer)
+            
+        }
+    });
     },
 });
 
