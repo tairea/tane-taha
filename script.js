@@ -8,7 +8,7 @@ var BootScene = new Phaser.Class({
     // map tiles
     this.load.image(
       "tiles",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183"
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2FroguelikeSheet_transparent.png?v=1604906816028"
     );
     // map in json format
     this.load.tilemapTiledJSON(
@@ -879,12 +879,12 @@ class gameIntro extends Phaser.Scene {
     // map tiles
     this.load.image(
       "tiles",
-      "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2FroguelikeSheet_transparent.png?v=1599531315183"
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2FroguelikeSheet_transparent.png?v=1604906816028"
     );
     // map in json format
     this.load.tilemapTiledJSON(
       "map",
-      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Ftane-rpg-no-center.json?v=1604903866637"
+      "https://cdn.glitch.com/ac36cc02-7b80-46b7-9cad-fe737d8b49ab%2Ftane-rpg-no-center.json?v=1604906890167"
       // "https://cdn.glitch.com/f12fb306-ee68-4209-aac1-9db831f7a2b9%2Ftane-rpg.json?v=1599531265606"
       
     );
