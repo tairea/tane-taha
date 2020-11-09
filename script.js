@@ -62,44 +62,6 @@ var BootScene = new Phaser.Class({
 
   create: function() {
     
-    // create map.
-    // map
-    var map = this.make.tilemap({ key: "map" });
-    // first parameter is the name of the tilemap in Tiled
-    var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
-
-    // creating the areas
-    this.area1 = map.findObject("areas", obj => obj.name === "area1");
-    this.area2 = map.findObject("areas", obj => obj.name === "area2");
-    this.area3 = map.findObject("areas", obj => obj.name === "area3");
-    this.area4 = map.findObject("areas", obj => obj.name === "area4");
-    this.center = map.findObject("areas", obj => obj.name === "center");
-
-    this.area1 = this.add
-      .zone(this.area1.x, this.area1.y, this.area1.width, this.area1.height)
-      .setOrigin(0, 0);
-    this.area2 = this.add
-      .zone(this.area2.x, this.area2.y, this.area2.width, this.area2.height)
-      .setOrigin(0, 0);
-    this.area3 = this.add
-      .zone(this.area3.x, this.area3.y, this.area3.width, this.area3.height)
-      .setOrigin(0, 0);
-    this.area4 = this.add
-      .zone(this.area4.x, this.area4.y, this.area4.width, this.area4.height)
-      .setOrigin(0, 0);
-    this.center = this.add
-      .zone(this.center.x, this.center.y, this.center.width, this.center.height)
-      .setOrigin(0, 0);
-
-    this.physics.world.enable(this.area1);
-    this.physics.world.enable(this.area2);
-    this.physics.world.enable(this.area3);
-    this.physics.world.enable(this.area4);
-    this.physics.world.enable(this.center);
-
-    // make all tiles in obstacles collidable
-    const platforms = map.createStaticLayer("ground", tileset, 0, 0);
-    
     // start the WorldScene
     //this.scene.start("WorldScene");
   }
@@ -849,45 +811,57 @@ class gameIntro extends Phaser.Scene {
     );
   }
   create() {
-    this.add.image(240, 320, "background").setScrollFactor(1, 0);
+     // create map.
+    // map
+    var map = this.make.tilemap({ key: "map" });
+    // first parameter is the name of the tilemap in Tiled
+    var tileset = map.addTilesetImage("roguelikeSheet_transparent", "tiles");
 
-    // creation of the physics group which will contain all platforms
-    this.platformGroup = this.physics.add.group();
+    // creating the areas
+    this.area1 = map.findObject("areas", obj => obj.name === "area1");
+    this.area2 = map.findObject("areas", obj => obj.name === "area2");
+    this.area3 = map.findObject("areas", obj => obj.name === "area3");
+    this.area4 = map.findObject("areas", obj => obj.name === "area4");
+    this.center = map.findObject("areas", obj => obj.name === "center");
 
-    // create starting platform
-    let platform = this.platformGroup.create(
-      game.config.width / 2,
-      game.config.height * gameOptions.firstPlatformPosition,
-      "platform"
-    );
-    platform.setScale(0.5);
+    this.area1 = this.add
+      .zone(this.area1.x, this.area1.y, this.area1.width, this.area1.height)
+      .setOrigin(0, 0);
+    this.area2 = this.add
+      .zone(this.area2.x, this.area2.y, this.area2.width, this.area2.height)
+      .setOrigin(0, 0);
+    this.area3 = this.add
+      .zone(this.area3.x, this.area3.y, this.area3.width, this.area3.height)
+      .setOrigin(0, 0);
+    this.area4 = this.add
+      .zone(this.area4.x, this.area4.y, this.area4.width, this.area4.height)
+      .setOrigin(0, 0);
+    this.center = this.add
+      .zone(this.center.x, this.center.y, this.center.width, this.center.height)
+      .setOrigin(0, 0);
 
-    // platform won't physically react to collisions
-    platform.setImmovable(true);
+    this.physics.world.enable(this.area1);
+    this.physics.world.enable(this.area2);
+    this.physics.world.enable(this.area3);
+    this.physics.world.enable(this.area4);
+    this.physics.world.enable(this.center);
 
-    // we are going to create 10 more platforms which we'll reuse to save resources
-    for (let i = 0; i < 10; i++) {
-      // platform creation, as a member of platformGroup physics group
-      let platform = this.platformGroup.create(0, 0, "platform");
-      platform.setScale(0.5);
-
-      // platform won't physically react to collisions
-      platform.setImmovable(true);
-
-      // position the platform
-      this.positionPlatform(platform);
-    }
+    // make all tiles in obstacles collidable
+    const platforms = map.createStaticLayer("ground", tileset, 0, 0);
+    
+    
+    
 
     // dialog ONE
     this.dialog1 = this.rexUI.add
       .dialog({
-        x: 400,
+        x: game.config.width / 2,
         y: game.config.height / 2,
         width: 500,
         background: this.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0x533d8e),
         content: this.createLabel(
           this,
-          "Help Tāne descend the heavens \nbefore Whiro catches him!!",
+          "Tane needs to strengthen his \n4 Taha to reach his aspirational \nstate of wellbeing.",
           50,
           50
         ),
@@ -1031,7 +1005,7 @@ var config = {
       debug: true // set to true to view zones
     }
   },
-  scene: [BootScene, WorldScene]
+  scene: [gameIntro, BootScene, WorldScene]
 };
 
 var game = new Phaser.Game(config);
