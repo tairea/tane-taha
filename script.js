@@ -84,6 +84,21 @@ var WorldScene = new Phaser.Class({
   },
 
   create: function () {
+     var add = this.add;
+    var input = this.input;
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+        },
+        active: function ()
+        {
+            this.timer = add.text(game.config.width/2,0, '00:00', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+          // this.timer.setOrigin(this.timer.width/2,0)
+          console.log(this.timer)
+            
+        }
+    });
     // game size
     console.log("game.config.width", game.config.width);
     console.log("game.config.height", game.config.height);
@@ -687,28 +702,27 @@ var WorldScene = new Phaser.Class({
     }
   },
   
-  createText: function () {
-     var style = {
-        font: "15px Revalia",
-        fill: "#fff",
-        boundsAlignH: "center",
-        boundsAlignV: "middle"
-      };
-
-      var style2 = {
-        font: "25px FerrumExtracondensed",
-        fill: "#fff",
-        boundsAlignH: "center",
-        boundsAlignV: "middle"
-      };
-
-      //  The Text is positioned at 0, 100
-      var text = game.add.text(50, 100, "Revalia Google Font", style);
-      text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-
-      var text2 = game.add.text(50, 200, "Ferrum Custom Font", style2);
-      text2.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-  }
+  makeText: function() {
+        this.text1 = game.add.text(game.width / 2, 100, "Some Text Here");
+        this.text1.fill = "#ffffff";
+        this.text1.anchor.set(0.5, 0.5);
+        this.text1.font = "Fresca";
+        //
+        //
+        this.text2 = game.add.text(game.width / 2, 200, "On Fire!");
+        this.text2.fill = "#ff0000";
+        this.text2.stroke = "#ffff00";
+        this.text2.strokeThickness = 6;
+        this.text2.anchor.set(0.5, 0.5);
+        this.text2.font = "Flamenco";
+        //
+        //
+        //
+        this.text3 = game.add.text(game.width / 2, 300, "Some Text Here");
+        this.text3.fill = "#00ff00";
+        this.text3.anchor.set(0.5, 0.5);
+        this.text3.font = "Indie Flower";
+    },
 });
 
 /* ==================================
@@ -732,29 +746,3 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
-WebFontConfig = {
-	
-  //  'active' means all requested fonts have finished loading
-  //  We set a 1 second delay before calling 'createText'.
-  //  For some reason if we don't the browser cannot render the text the first time it's created.
-  active: function() {
- game.time.events.add(Phaser.Timer.SECOND, this.createText, this);
-  },
-
-  //  The Google Fonts we want to load (specify as many as you like in the array)
-  google: {
-    families: ['Revalia']
-  },
-  custom: {
-    families: ['FerrumExtracondensed'],
-    urls: ["https://fontlibrary.org/face/ferrum"]
-  }
-  //free font from fontlibrary
-  //https://fontlibrary.org/en/font/ferrum
-  //
-  //url can be a local url, link to your custom css generated from a font, from fontSquirrel for example!
-  //https://www.fontsquirrel.com/tools/webfont-generator
-  //just be sure that the font is LEGALLY ELEGIBLE for embedding! :)
-
-};
