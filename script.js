@@ -672,11 +672,18 @@ var WorldScene = new Phaser.Class({
     );
     
     // ========== add coin above tanes head
-    this.blueTokenhud = this.add.image("blue-coin")
-    const hudCoins = [this.blueTokenHud,this.goldTokenHud,this.silverTokenHud,this.bronzeTokenHud,]
-    for (var i = 0; i < 4; i++) {
-      this.add.container(game.width/2,game.height/2,[this.tane,this])
-    }
+    this.blueTokenHud = this.add.image(100,100,"blue-coin-1")
+    this.goldTokenHud = this.add.image(0,0,"gold-coin-1")
+    this.silverTokenHud = this.add.image(0,0,"silver-coin-1")
+    this.bronzeTokenHud = this.add.image(0,0,"bronze-coin-1")
+    this.blueTokenHud.setScale(0.25)
+    
+    const hudCoins = [this.blueTokenHud,this.goldTokenHud,this.silverTokenHud,this.bronzeTokenHud]
+    
+    this.playerContainer = this.add.container(0,0)
+    
+    this.playerContainer.add(this.tane)
+    
     
   },
 
@@ -1201,7 +1208,8 @@ var config = {
       debug: false // set to true to view zones
     }
   },
-  scene: [gameIntro, BootScene, WorldScene]
+  // scene: [gameIntro, BootScene, WorldScene]
+  scene: [BootScene, WorldScene]
 };
 
 var game = new Phaser.Game(config);
