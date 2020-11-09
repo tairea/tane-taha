@@ -107,7 +107,7 @@ let gameOptions = {
   taha4Count: 0
 };
 
-var countdownTime = 10;
+var countdownTime = 60;
 
 var WorldScene = new Phaser.Class({
   Extends: Phaser.Scene,
@@ -266,9 +266,8 @@ var WorldScene = new Phaser.Class({
     this.physics.add.overlap(this.tane, this.area4, this.inTaha4, null, this);
     this.physics.add.overlap(this.tane, this.center, this.inCenter, null, this);
 
-   
 
-    // ========== Countdown
+    
 
     // ========== TAHA 1 BAR
     // the energy container. A simple sprite
@@ -642,24 +641,24 @@ var WorldScene = new Phaser.Class({
       
       switch(i) {
         case 0:
-          const blueToken = this.tokens.create(x, y, "blue-coin-1");    
-          blueToken.setScale(0.5)
-          blueToken.play("blueCoin",true)
+          this.blueToken = this.tokens.create(x, y, "blue-coin-1");    
+          this.blueToken.setScale(0.5)
+          this.blueToken.play("blueCoin",true)
           break;
         case 1:
-          const goldToken = this.tokens.create(x, y, "gold-coin-1");    
-          goldToken.setScale(0.5)
-          goldToken.play("goldCoin",true)
+          this.goldToken = this.tokens.create(x, y, "gold-coin-1");    
+          this.goldToken.setScale(0.5)
+          this.goldToken.play("goldCoin",true)
           break;
         case 2:
-          const bronzeToken = this.tokens.create(x, y, "bronze-coin-1");    
-          bronzeToken.setScale(0.5)
-          bronzeToken.play("bronzeCoin",true)
+          this.bronzeToken = this.tokens.create(x, y, "bronze-coin-1");    
+          this.bronzeToken.setScale(0.5)
+          this.bronzeToken.play("bronzeCoin",true)
           break;
         case 3:
-          const silverToken = this.tokens.create(x, y, "silver-coin-1");    
-          silverToken.setScale(0.5)
-          silverToken.play("silverCoin",true)
+          this.silverToken = this.tokens.create(x, y, "silver-coin-1");    
+          this.silverToken.setScale(0.5)
+          this.silverToken.play("silverCoin",true)
           break;
       }
 
@@ -671,6 +670,14 @@ var WorldScene = new Phaser.Class({
       false,
       this
     );
+    
+    // ========== add coin above tanes head
+    this.blueTokenhud = this.add.image("blue-coin")
+    const hudCoins = [this.blueTokenHud,this.goldTokenHud,this.silverTokenHud,this.bronzeTokenHud,]
+    for (var i = 0; i < 4; i++) {
+      this.add.container(game.width/2,game.height/2,[this.tane,this])
+    }
+    
   },
 
   /* =============================================
