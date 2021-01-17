@@ -515,7 +515,7 @@ var WorldScene = new Phaser.Class({
       delay: 3000
     }
     this.music = this.sound.add("music", musicConfig);
-    // this.music.play();
+    this.music.play();
 
     // load google font
     WebFont.load({
@@ -1592,6 +1592,7 @@ class GameOver extends Phaser.Scene {
 
   create() {
     this.sound.stopAll()
+    this.sound.play("die");
     // load song
     const musicConfig = {
       volume: 0.5,
