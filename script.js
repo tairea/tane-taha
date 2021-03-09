@@ -503,7 +503,17 @@ var WorldScene = new Phaser.Class({
     this.tokenInHandEquals = ""
     this.tokenInHand = false
     // reset timer
-    countdownTimer = 60;
+    countdownTimer = 90;
+    // reset taha
+    gameOptions.taha1Count = 0
+    gameOptions.taha2Count = 0
+    gameOptions.taha3Count = 0
+    gameOptions.taha4Count = 0
+    this.taha1Completed = false
+    this.taha2Completed = false
+    this.taha3Completed = false
+    this.taha4Completed = false
+
     console.log("timer reset. Countdown starting at: ", countdownTimer)
 
     // play music
@@ -1372,19 +1382,29 @@ var WorldScene = new Phaser.Class({
     ) {
       this.temmie.anims.play("temmieRight", true);
     }
+
   }, //end of update
 
   /* =============================================
                     GAME METHODS
    ============================================= */
+   didYouWin: function () {
+     // check if won
+    if (this.taha1Completed == true && this.taha2Completed == true && this.taha3Completed == true && this.taha4Completed == true) {
+      this.scene.start("game-win");
+    }
+   },
+
   inTaha1: function (player, area) {
     console.log("in taha blue");
-
     if (gameOptions.taha1Count < 100 & this.tokenInHandEquals == "blue") {
       this.sound.play("powerUp");
       // TODO: increase time and taha based on how many seconds have passed.
+      // if already full. dont increase anymore
+    if (!this.taha1Completed) {
       gameOptions.taha1Count += 10;
       this.energyMaskTaha1.x += this.barIncrement;
+    }
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.blueTokenHud.setVisible(false)
@@ -1399,8 +1419,11 @@ var WorldScene = new Phaser.Class({
     } else if (gameOptions.taha1Count >= this.taha1Max) {
       console.log('won from blue')
       console.log('gameOptions.taha1Count:',gameOptions.taha1Count,'this.taha1Max:',this.taha1Max)
-      this.scene.start("game-win");
+      // this.scene.start("game-win");
+      this.taha1Completed = true
     }
+
+    this.didYouWin()
   },
 
   inTaha2: function (player, area) {
@@ -1408,8 +1431,10 @@ var WorldScene = new Phaser.Class({
     if (gameOptions.taha2Count < 100 & this.tokenInHandEquals == "silver") {
       this.sound.play("powerUp");
       // TODO: increase time and taha based on how many seconds have passed.
-      gameOptions.taha2Count += 10;
-      this.energyMaskTaha2.x += this.barIncrement;
+      if (!this.taha2Completed) {
+        gameOptions.taha2Count += 10;
+        this.energyMaskTaha2.x += this.barIncrement;
+      }
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.silverTokenHud.setVisible(false)
@@ -1422,8 +1447,11 @@ var WorldScene = new Phaser.Class({
       this.silverToken.play("silverCoin", true)
       this.silverToken.name = "silver"
     } else if (gameOptions.taha2Count >= this.taha2Max) {
-      this.scene.start("game-win");
+      // this.scene.start("game-win");
+      this.taha2Completed = true
     }
+
+    this.didYouWin()
   },
 
   inTaha3: function (player, area) {
@@ -1431,8 +1459,10 @@ var WorldScene = new Phaser.Class({
     if (gameOptions.taha3Count < 100 & this.tokenInHandEquals == "bronze") {
       this.sound.play("powerUp");
       // TODO: increase time and taha based on how many seconds have passed.
-      gameOptions.taha3Count += 10;
-      this.energyMaskTaha3.x += this.barIncrement;
+      if (!this.taha3Completed) {
+        gameOptions.taha3Count += 10;
+        this.energyMaskTaha3.x += this.barIncrement;
+      }
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.bronzeTokenHud.setVisible(false)
@@ -1445,17 +1475,23 @@ var WorldScene = new Phaser.Class({
       this.bronzeToken.play("bronzeCoin", true)
       this.bronzeToken.name = "bronze"
     } else if (gameOptions.taha3Count >=  this.taha3Max) {
-      this.scene.start("game-win");
+      // this.scene.start("game-win");
+      this.taha3Completed = true
     }
+
+    this.didYouWin()
   },
 
   inTaha4: function (player, area) {
     console.log("in taha gold");
+
     if (gameOptions.taha4Count < 100 & this.tokenInHandEquals == "gold") {
       this.sound.play("powerUp");
       // TODO: increase time and taha based on how many seconds have passed.
-      gameOptions.taha4Count += 10;
-      this.energyMaskTaha4.x += this.barIncrement;
+      if (!this.taha4Completed) {
+        gameOptions.taha4Count += 10;
+        this.energyMaskTaha4.x += this.barIncrement;
+      }
       this.tokenInHandEquals = ""
       this.tokenInHand = false
       this.goldTokenHud.setVisible(false)
@@ -1468,8 +1504,11 @@ var WorldScene = new Phaser.Class({
       this.goldToken.play("goldCoin", true)
       this.goldToken.name = "gold"
     } else if (gameOptions.taha4Count >=  this.taha4Max) {
-      this.scene.start("game-win");
+      // this.scene.start("game-win");
+      this.taha4Completed = true
     }
+
+    this.didYouWin()
   },
 
   // no longer used. not center feature anymore
@@ -1696,7 +1735,7 @@ class GameWin extends Phaser.Scene {
           .setAlign("center")
           .setOrigin()
           .setScrollFactor(0)
-        this.add.text(game.config.width / 2, game.config.height / 2 + 100, "You completely strengthed one of your taha!", {
+        this.add.text(game.config.width / 2, game.config.height / 2 + 100, "You completely strengthed all of your taha!!!", {
             fontFamily: "Finger Paint",
             fontSize: 20,
             color: "#ffffff"
